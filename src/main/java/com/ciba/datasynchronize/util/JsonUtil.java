@@ -76,6 +76,7 @@ public class JsonUtil {
             object.put("stbif", deviceData.getStbif());
             object.put("cpuType", deviceData.getCpuType());
             object.put("cpuSubtype", deviceData.getCpuSubtype());
+            object.put("na", deviceData.getNa() == null ? "" : deviceData.getNa());
         } catch (Exception e) {
             e.printStackTrace();
         }
