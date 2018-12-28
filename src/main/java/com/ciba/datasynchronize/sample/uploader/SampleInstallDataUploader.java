@@ -4,6 +4,7 @@ import android.text.TextUtils;
 
 import com.ciba.datasynchronize.coder.PublicKey;
 import com.ciba.datasynchronize.entity.CustomPackageInfo;
+import com.ciba.datasynchronize.manager.DataCacheManager;
 import com.ciba.datasynchronize.sample.manager.SampleLoaderUploaderManager;
 import com.ciba.datasynchronize.sample.manager.SampleUrlManager;
 import com.ciba.datasynchronize.uploader.InstallDataUploader;
@@ -35,7 +36,8 @@ public class SampleInstallDataUploader implements InstallDataUploader {
 
         String installJson = JsonUtil.installList2JsonString(installPackageList);
         String jsonRsa = PublicKey.keyboards(installJson);
-        Map<String, String> requestParams = new HashMap<>(1);
+        Map<String, String> requestParams = new HashMap<>(2);
+        requestParams.put("machineId", DataCacheManager.getInstance().getMachineId() + "");
         requestParams.put("jsons", jsonRsa);
         httpClient.post(installDataUrl, requestParams, new SimpleHttpListener() {
             @Override

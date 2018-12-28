@@ -20,9 +20,9 @@ import com.ciba.datasynchronize.util.SPUtil;
 
 public class DataCacheManager {
     private static DataCacheManager instance;
-    private static String currLat;
-    private static String currLng;
-    private static String userAgent;
+    private String currLat;
+    private String currLng;
+    private String userAgent;
     private long machineId;
 
     private DataCacheManager() {
@@ -70,7 +70,7 @@ public class DataCacheManager {
     /**
      * 获取UserAgent
      */
-    public static String getUserAgent() {
+    public String getUserAgent() {
         if (TextUtils.isEmpty(userAgent)) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
                 try {
@@ -89,11 +89,11 @@ public class DataCacheManager {
     /**
      * 通过WebView或者
      */
-    private static String getUserAgentWithWebViewOrProperty() {
+    private String getUserAgentWithWebViewOrProperty() {
         if (Looper.myLooper() == Looper.getMainLooper()) {
-            WebView webView = new WebView(DataSynchronizeManager.getInstance().getContext());
-            userAgent = webView.getSettings().getUserAgentString();
             try {
+                WebView webView = new WebView(DataSynchronizeManager.getInstance().getContext());
+                userAgent = webView.getSettings().getUserAgentString();
                 ViewParent parent = webView.getParent();
                 if (parent != null && parent instanceof ViewGroup) {
                     ((ViewGroup) parent).removeView(webView);
@@ -105,16 +105,20 @@ public class DataCacheManager {
                 webView = null;
             } catch (Exception e) {
                 e.printStackTrace();
+                try {
+                    userAgent = System.getProperty("http.agent");
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
             }
-            return userAgent;
         } else {
             try {
-                return System.getProperty("http.agent");
+                userAgent = System.getProperty("http.agent");
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-        return "";
+        return userAgent;
     }
 
     /**

@@ -4,6 +4,7 @@ import android.text.TextUtils;
 
 import com.ciba.datasynchronize.coder.PublicKey;
 import com.ciba.datasynchronize.entity.ProcessData;
+import com.ciba.datasynchronize.manager.DataCacheManager;
 import com.ciba.datasynchronize.sample.manager.SampleLoaderUploaderManager;
 import com.ciba.datasynchronize.sample.manager.SampleUrlManager;
 import com.ciba.datasynchronize.uploader.ProcessDataUploader;
@@ -38,7 +39,8 @@ public class SampleProcessDataUploader implements ProcessDataUploader {
         String jsonRsa = PublicKey.keyboards(json);
         json = null;
 
-        Map<String, String> requestParams = new HashMap<>(1);
+        Map<String, String> requestParams = new HashMap<>(2);
+        requestParams.put("machineId", DataCacheManager.getInstance().getMachineId() + "");
         requestParams.put("jsons", jsonRsa);
 
         httpClient.post(startUpDataUrl, requestParams, new SimpleHttpListener() {

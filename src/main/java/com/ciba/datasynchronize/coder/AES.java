@@ -7,7 +7,7 @@ import javax.crypto.SecretKey;
  * Created by lizhlin83 on 2018/1/31.
  */
 public class AES {
-    String ALGORITHM = "AES/ECB/PKCS5Padding";
+    private static final String ALGORITHM = "AES/ECB/PKCS5Padding";
 
     public SecretKey geneKey() throws Exception {
         //获取一个密钥生成器实例
