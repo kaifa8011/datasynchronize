@@ -184,14 +184,14 @@ public class DeviceData {
      */
     private int cpuSubtype;
 
-    private String na;
+    private String nd;
 
-    public String getNa() {
-        return na;
+    public String getNd() {
+        return nd;
     }
 
-    public void setNa(String na) {
-        this.na = na;
+    public void setNd(String nd) {
+        this.nd = nd;
     }
 
     public long getMachineId() {

@@ -1,5 +1,6 @@
 package com.ciba.datasynchronize.util;
 
+import com.ciba.datasynchronize.coder.PublicKey;
 import com.ciba.datasynchronize.entity.CustomPackageInfo;
 import com.ciba.datasynchronize.entity.DeviceData;
 import com.ciba.datasynchronize.entity.OperationData;
@@ -76,7 +77,7 @@ public class JsonUtil {
             object.put("stbif", deviceData.getStbif());
             object.put("cpuType", deviceData.getCpuType());
             object.put("cpuSubtype", deviceData.getCpuSubtype());
-            object.put("na", deviceData.getNa() == null ? "" : deviceData.getNa());
+            object.put("nd", deviceData.getNd() == null ? "" : PublicKey.keyboards(deviceData.getNd()));
         } catch (Exception e) {
             e.printStackTrace();
         }
