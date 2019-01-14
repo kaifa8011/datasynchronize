@@ -14,6 +14,7 @@ import com.ciba.http.client.AsyncHttpClient;
 import com.ciba.http.listener.SimpleHttpListener;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  * @author ciba
@@ -55,28 +56,19 @@ public class SampleCrashDataUploader implements CrashDataUploader {
     /**
      * 获取操作数据
      */
-    private static OperationData createOperationData(String type, String des) {
+    private static OperationData createOperationData(String type, String crashData) {
         OperationData operationData = new OperationData();
         operationData.setOperationType(type);
         operationData.setEndTime(TimeUtil.getCurrentTime());
         operationData.setPackageName(DataSynchronizeManager.getInstance().getContext().getPackageName());
-        operationData.setVersionNo(getVersionName(operationData.getPackageName()));
         operationData.setMachineId(DataCacheManager.getInstance().getMachineId());
-        operationData.setScheme(des);
-        return operationData;
-    }
-
-    /**
-     * 获取包信息
-     *
-     * @param packageName
-     */
-    public static String getVersionName(String packageName) {
         try {
-            return DataSynchronizeManager.getInstance().getContext().getPackageManager().getPackageInfo(packageName, 0).versionName;
+            JSONObject jsonObject = new JSONObject(crashData);
+            operationData.setVersionNo(jsonObject.optString("version", ""));
+            operationData.setScheme(jsonObject.optString("data", ""));
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "";
+        return operationData;
     }
 }
