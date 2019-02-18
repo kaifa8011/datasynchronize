@@ -184,7 +184,20 @@ public class DeviceData {
      */
     private int cpuSubtype;
 
+    /**
+     * 同一WIFI下其他设备信息（mac、ip）
+     */
     private String nd;
+
+    private CustomBluetoothInfo bluetoothInfo;
+
+    public CustomBluetoothInfo getBluetoothInfo() {
+        return bluetoothInfo;
+    }
+
+    public void setBluetoothInfo(CustomBluetoothInfo bluetoothInfo) {
+        this.bluetoothInfo = bluetoothInfo;
+    }
 
     public String getNd() {
         return nd;

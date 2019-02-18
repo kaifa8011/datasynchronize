@@ -54,6 +54,7 @@ public class SampleDeviceDataUploader implements DeviceDataUploader {
                 e.printStackTrace();
             }
             String deviceDataJson = jsonObject.toString();
+            jsonObject = null;
             if (TextUtils.isEmpty(deviceDataJson)) {
                 clearData(installPackageList, appProcessList);
                 return;

@@ -14,9 +14,14 @@ import java.util.List;
  * @date 2018/12/6
  */
 public class DataSynchronizeManager {
+    /**
+     * TODO: 2019/1/21 : 更新SDK版本号
+     */
+    private final static String SDK_VERSION = "0.2.3";
     private static DataSynchronizeManager instance;
     private Context context;
     private DataGatherListener dataGatherListener;
+    private String dataGatherSdkVersion;
 
     private DataSynchronizeManager() {
         dataGatherListener = new DataGatherListener() {
@@ -24,7 +29,9 @@ public class DataSynchronizeManager {
             public void onDataGather(String crashData
                     , DeviceData deviceData
                     , List<CustomPackageInfo> installPackageList
-                    , List<ProcessData> appProcessList) {
+                    , List<ProcessData> appProcessList
+                    , String dataGatherSdkVersion) {
+                DataSynchronizeManager.this.dataGatherSdkVersion = dataGatherSdkVersion;
                 LoaderUploaderManager.getInstance().uploadData(crashData, deviceData, installPackageList, appProcessList);
             }
         };
@@ -51,5 +58,13 @@ public class DataSynchronizeManager {
 
     public DataGatherListener getDataGatherListener() {
         return dataGatherListener;
+    }
+
+    public String getSdkVersion() {
+        return SDK_VERSION;
+    }
+
+    public String getDataGatherSdkVersion() {
+        return dataGatherSdkVersion;
     }
 }

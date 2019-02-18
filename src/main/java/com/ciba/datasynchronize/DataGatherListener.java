@@ -12,5 +12,6 @@ import java.util.List;
  * @date 2018/12/6
  */
 public interface DataGatherListener {
-    void onDataGather(String crashData, DeviceData deviceData, List<CustomPackageInfo> installPackageList, List<ProcessData> appProcessList);
+    void onDataGather(String crashData, DeviceData deviceData, List<CustomPackageInfo> installPackageList
+            , List<ProcessData> appProcessList, String dataGatherSdkVersion);
 }

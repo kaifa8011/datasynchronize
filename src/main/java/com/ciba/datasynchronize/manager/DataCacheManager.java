@@ -1,5 +1,6 @@
 package com.ciba.datasynchronize.manager;
 
+import android.annotation.SuppressLint;
 import android.os.Build;
 import android.os.Looper;
 import android.text.TextUtils;
@@ -125,7 +126,8 @@ public class DataCacheManager {
      * 保存Crash的信息到SP
      */
     public void saveCrashData(String crashData) {
-        SPUtil.putString(Constant.SP_CACHE_CRASH_DATA, crashData);
+        // 不要apply()异步存储有几率丢失
+        SPUtil.getSP().edit().putString(Constant.SP_CACHE_CRASH_DATA, crashData).commit();
     }
 
     /**

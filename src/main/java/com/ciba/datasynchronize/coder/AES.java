@@ -13,8 +13,7 @@ public class AES {
         //获取一个密钥生成器实例
         KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
         keyGenerator.init(128);
-        SecretKey secretKey = keyGenerator.generateKey();
-        return secretKey;
+        return keyGenerator.generateKey();
     }
 
     public String aesCipher(String content, SecretKey secretKey) {

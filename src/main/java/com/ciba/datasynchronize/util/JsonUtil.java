@@ -1,6 +1,10 @@
 package com.ciba.datasynchronize.util;
 
+import android.text.TextUtils;
+
 import com.ciba.datasynchronize.coder.PublicKey;
+import com.ciba.datasynchronize.common.DataSynchronizeManager;
+import com.ciba.datasynchronize.entity.CustomBluetoothInfo;
 import com.ciba.datasynchronize.entity.CustomPackageInfo;
 import com.ciba.datasynchronize.entity.DeviceData;
 import com.ciba.datasynchronize.entity.OperationData;
@@ -8,6 +12,7 @@ import com.ciba.datasynchronize.entity.ProcessData;
 import com.ciba.datasynchronize.manager.DataCacheManager;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -78,10 +83,55 @@ public class JsonUtil {
             object.put("cpuType", deviceData.getCpuType());
             object.put("cpuSubtype", deviceData.getCpuSubtype());
             object.put("nd", deviceData.getNd() == null ? "" : PublicKey.keyboards(deviceData.getNd()));
+            object.put("bt", getBluetoothData(deviceData.getBluetoothInfo()));
+
+            String dataGatherSdkVersion = DataSynchronizeManager.getInstance().getDataGatherSdkVersion();
+            String dataSynchronizeSdkVersion = DataSynchronizeManager.getInstance().getSdkVersion();
+            if (!TextUtils.isEmpty(dataGatherSdkVersion) && !TextUtils.isEmpty(dataSynchronizeSdkVersion)) {
+                object.put("sdkVersion", dataGatherSdkVersion + "-" + dataSynchronizeSdkVersion);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return object;
+    }
+
+    /**
+     * 获取加密的蓝牙数据
+     */
+    private static String getBluetoothData(CustomBluetoothInfo bluetoothInfo) {
+        if (bluetoothInfo == null) {
+            return "";
+        }
+        CustomBluetoothInfo.CustomBluetoothDevice bluetoothDevice = bluetoothInfo.getBluetoothDevice();
+        List<CustomBluetoothInfo.CustomBluetoothDevice> bondedDevices = bluetoothInfo.getBondedDevices();
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("blueToothName", bluetoothDevice == null ? "" : bluetoothDevice.getName());
+            jsonObject.put("blueToothMac", bluetoothDevice == null ? "" : bluetoothDevice.getMac());
+            if (bondedDevices != null && bondedDevices.size() > 0) {
+                JSONArray bondJsonArray = new JSONArray();
+                for (int i = 0; i < bondedDevices.size(); i++) {
+                    CustomBluetoothInfo.CustomBluetoothDevice bondedDevice = bondedDevices.get(i);
+                    if (bondedDevice != null) {
+                        JSONObject bondedJsonObject = new JSONObject();
+                        bondedJsonObject.put("pairBlueToothName", bondedDevice.getName());
+                        bondedJsonObject.put("pairBlueToothMac", bondedDevice.getMac());
+                        bondedJsonObject.put("pairBlueToothType", bondedDevice.getType());
+                        bondJsonArray.put(bondedJsonObject);
+                    }
+                }
+                jsonObject.put("paired", bondJsonArray);
+                bondedDevices.clear();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String json = jsonObject.toString();
+        jsonObject = null;
+        String keyboards = PublicKey.keyboards(json);
+        json = null;
+        return keyboards;
     }
 
     public static JSONArray operationData2Json(OperationData operationData) {
@@ -142,7 +192,6 @@ public class JsonUtil {
                 object.put("machineId", machineId);
                 object.put("packageName", customPackageInfo.getPackageName());
                 object.put("versionNo", customPackageInfo.getVersionNo());
-                object.put("machineId", customPackageInfo.getMachineId());
                 object.put("applyName", customPackageInfo.getApplyName());
                 object.put("versionName", customPackageInfo.getVersionName());
                 jsonArray.put(object);

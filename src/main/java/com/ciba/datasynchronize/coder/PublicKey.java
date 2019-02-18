@@ -51,8 +51,7 @@ public class PublicKey {
      * @return
      * @throws Exception
      */
-    public static byte[] encryptByPublicKey(String data, String key)
-            throws Exception {
+    public static byte[] encryptByPublicKey(String data, String key) throws Exception {
         // 对公钥解密
         byte[] keyBytes = decryptBASE64(key);
         // 取得公钥

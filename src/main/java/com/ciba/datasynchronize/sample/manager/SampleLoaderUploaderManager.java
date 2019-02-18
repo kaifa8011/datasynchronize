@@ -105,7 +105,7 @@ public class SampleLoaderUploaderManager {
     }
 
     private void checkActivityLifecycleUploader() {
-        if (processDataUploader == null) {
+        if (activityLifecycleUploader == null) {
             activityLifecycleUploader = new SampleActivityLifecycleUploader();
         }
     }

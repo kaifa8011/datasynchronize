@@ -3,6 +3,7 @@ package com.ciba.datasynchronize.sample.uploader;
 import android.text.TextUtils;
 
 import com.ciba.datasynchronize.coder.PublicKey;
+import com.ciba.datasynchronize.common.DataSynchronizeManager;
 import com.ciba.datasynchronize.entity.ProcessData;
 import com.ciba.datasynchronize.manager.DataCacheManager;
 import com.ciba.datasynchronize.sample.manager.SampleLoaderUploaderManager;
@@ -41,6 +42,13 @@ public class SampleProcessDataUploader implements ProcessDataUploader {
 
         Map<String, String> requestParams = new HashMap<>(2);
         requestParams.put("machineId", DataCacheManager.getInstance().getMachineId() + "");
+
+        String dataGatherSdkVersion = DataSynchronizeManager.getInstance().getDataGatherSdkVersion();
+        String dataSynchronizeSdkVersion = DataSynchronizeManager.getInstance().getSdkVersion();
+        if (!TextUtils.isEmpty(dataGatherSdkVersion) && !TextUtils.isEmpty(dataSynchronizeSdkVersion)) {
+            requestParams.put("sdkVersion", dataGatherSdkVersion + "-" + dataSynchronizeSdkVersion);
+        }
+
         requestParams.put("jsons", jsonRsa);
 
         httpClient.post(startUpDataUrl, requestParams, new SimpleHttpListener() {
