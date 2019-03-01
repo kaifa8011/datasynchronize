@@ -12,7 +12,6 @@ import com.ciba.datasynchronize.uploader.ActivityLifecycleUploader;
 import com.ciba.datasynchronize.util.JsonUtil;
 import com.ciba.datasynchronize.util.TimeUtil;
 import com.ciba.http.client.AsyncHttpClient;
-import com.ciba.http.listener.SimpleHttpListener;
 
 import org.json.JSONArray;
 
@@ -28,7 +27,11 @@ public class SampleActivityLifecycleUploader implements ActivityLifecycleUploade
         if (activity == null) {
             return;
         }
-        if (ACTIVITY_CREATED != lifecycle ) {
+        if (ACTIVITY_CREATED != lifecycle) {
+            return;
+        }
+        long machineId = DataCacheManager.getInstance().getMachineId();
+        if (machineId <= 0) {
             return;
         }
         AsyncHttpClient httpClient = SampleLoaderUploaderManager.getInstance().getHttpClient();
@@ -39,7 +42,7 @@ public class SampleActivityLifecycleUploader implements ActivityLifecycleUploade
 
         String packageName = DataSynchronizeManager.getInstance().getContext().getPackageName();
         OperationData operationData = new OperationData();
-        operationData.setMachineId(DataCacheManager.getInstance().getMachineId());
+        operationData.setMachineId(machineId);
         operationData.setPackageName(packageName);
         operationData.setVersionNo(getVersionName(packageName));
         operationData.setScheme(activity.getLocalClassName());
@@ -60,11 +63,7 @@ public class SampleActivityLifecycleUploader implements ActivityLifecycleUploade
             return;
         }
 
-        httpClient.postJson(activityLifeUrl, jsonData, new SimpleHttpListener() {
-            @Override
-            public void onRequestSuccess(String result) {
-            }
-        });
+        httpClient.postJson(activityLifeUrl, jsonData, null);
     }
 
     /**

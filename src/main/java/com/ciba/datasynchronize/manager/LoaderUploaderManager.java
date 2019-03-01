@@ -4,6 +4,7 @@ import android.app.Activity;
 
 import com.ciba.datasynchronize.entity.CustomPackageInfo;
 import com.ciba.datasynchronize.entity.DeviceData;
+import com.ciba.datasynchronize.entity.OperationData;
 import com.ciba.datasynchronize.entity.ProcessData;
 import com.ciba.datasynchronize.loder.LocationLoader;
 import com.ciba.datasynchronize.sample.manager.SampleLoaderUploaderManager;
@@ -11,6 +12,7 @@ import com.ciba.datasynchronize.uploader.ActivityLifecycleUploader;
 import com.ciba.datasynchronize.uploader.CrashDataUploader;
 import com.ciba.datasynchronize.uploader.DeviceDataUploader;
 import com.ciba.datasynchronize.uploader.InstallDataUploader;
+import com.ciba.datasynchronize.uploader.MotionEventDataUploader;
 import com.ciba.datasynchronize.uploader.ProcessDataUploader;
 
 import java.util.List;
@@ -29,6 +31,7 @@ public class LoaderUploaderManager {
     private CrashDataUploader crashDataUploader;
     private InstallDataUploader installDataUploader;
     private ProcessDataUploader processDataUploader;
+    private MotionEventDataUploader motionEventDataUploader;
 
     private LoaderUploaderManager() {
     }
@@ -178,6 +181,21 @@ public class LoaderUploaderManager {
             processDataUploader.uploadProcessData(processDataList);
         } else {
             SampleLoaderUploaderManager.getInstance().uploadProcessData(processDataList);
+        }
+    }
+
+    /**
+     * 设置Activity生命周期统计上报者（Activity生命周期统计交由用户实现）
+     */
+    public void setMotionEventDataUploader(MotionEventDataUploader motionEventDataUploader) {
+        this.motionEventDataUploader = motionEventDataUploader;
+    }
+
+    public void uploadMotionEventData(List<OperationData> eventMotionList) {
+        if (motionEventDataUploader != null) {
+            motionEventDataUploader.uploadMotionEventData(eventMotionList);
+        } else {
+            SampleLoaderUploaderManager.getInstance().uploadMotionEventData(eventMotionList);
         }
     }
 }

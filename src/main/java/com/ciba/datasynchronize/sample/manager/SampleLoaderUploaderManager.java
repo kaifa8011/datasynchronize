@@ -4,15 +4,18 @@ import android.app.Activity;
 
 import com.ciba.datasynchronize.entity.CustomPackageInfo;
 import com.ciba.datasynchronize.entity.DeviceData;
+import com.ciba.datasynchronize.entity.OperationData;
 import com.ciba.datasynchronize.entity.ProcessData;
 import com.ciba.datasynchronize.sample.uploader.SampleActivityLifecycleUploader;
 import com.ciba.datasynchronize.sample.uploader.SampleCrashDataUploader;
 import com.ciba.datasynchronize.sample.uploader.SampleDeviceDataUploader;
 import com.ciba.datasynchronize.sample.uploader.SampleInstallDataUploader;
+import com.ciba.datasynchronize.sample.uploader.SampleMotionEventDataUploader;
 import com.ciba.datasynchronize.sample.uploader.SampleProcessDataUploader;
 import com.ciba.datasynchronize.uploader.ActivityLifecycleUploader;
 import com.ciba.datasynchronize.uploader.CrashDataUploader;
 import com.ciba.datasynchronize.uploader.InstallDataUploader;
+import com.ciba.datasynchronize.uploader.MotionEventDataUploader;
 import com.ciba.datasynchronize.uploader.ProcessDataUploader;
 import com.ciba.http.client.AsyncHttpClient;
 
@@ -33,6 +36,7 @@ public class SampleLoaderUploaderManager {
     private InstallDataUploader installDataUploader;
     private ProcessDataUploader processDataUploader;
     private ActivityLifecycleUploader activityLifecycleUploader;
+    private MotionEventDataUploader motionEventDataUploader;
 
     private SampleLoaderUploaderManager() {
         httpClient = new AsyncHttpClient();
@@ -107,6 +111,17 @@ public class SampleLoaderUploaderManager {
     private void checkActivityLifecycleUploader() {
         if (activityLifecycleUploader == null) {
             activityLifecycleUploader = new SampleActivityLifecycleUploader();
+        }
+    }
+
+    public void uploadMotionEventData(List<OperationData> eventMotionList) {
+        checkMotionEventDataUploader();
+        motionEventDataUploader.uploadMotionEventData(eventMotionList);
+    }
+
+    private void checkMotionEventDataUploader() {
+        if (motionEventDataUploader == null) {
+            motionEventDataUploader = new SampleMotionEventDataUploader();
         }
     }
 }

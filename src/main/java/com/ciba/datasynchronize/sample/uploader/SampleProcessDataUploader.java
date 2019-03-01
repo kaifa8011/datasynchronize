@@ -11,7 +11,6 @@ import com.ciba.datasynchronize.sample.manager.SampleUrlManager;
 import com.ciba.datasynchronize.uploader.ProcessDataUploader;
 import com.ciba.datasynchronize.util.JsonUtil;
 import com.ciba.http.client.AsyncHttpClient;
-import com.ciba.http.listener.SimpleHttpListener;
 
 import java.util.HashMap;
 import java.util.List;
@@ -48,14 +47,7 @@ public class SampleProcessDataUploader implements ProcessDataUploader {
         if (!TextUtils.isEmpty(dataGatherSdkVersion) && !TextUtils.isEmpty(dataSynchronizeSdkVersion)) {
             requestParams.put("sdkVersion", dataGatherSdkVersion + "-" + dataSynchronizeSdkVersion);
         }
-
         requestParams.put("jsons", jsonRsa);
-
-        httpClient.post(startUpDataUrl, requestParams, new SimpleHttpListener() {
-            @Override
-            public void onRequestSuccess(String result) {
-                super.onRequestSuccess(result);
-            }
-        });
+        httpClient.post(startUpDataUrl, requestParams, null);
     }
 }

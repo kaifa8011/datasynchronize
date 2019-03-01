@@ -11,14 +11,17 @@ public class SampleUrl {
     private String installDataUrl;
     private String startUpDataUrl;
     private String activityLifeUrl;
+    private String motionEventUrl;
 
     public SampleUrl(String crashDataUrl, String deviceDataUrl
-            , String installDataUrl, String startUpDataUrl, String activityLifeUrl) {
+            , String installDataUrl, String startUpDataUrl
+            , String activityLifeUrl, String motionEventUrl) {
         this.crashDataUrl = crashDataUrl;
         this.deviceDataUrl = deviceDataUrl;
         this.installDataUrl = installDataUrl;
         this.startUpDataUrl = startUpDataUrl;
         this.activityLifeUrl = activityLifeUrl;
+        this.motionEventUrl = motionEventUrl;
     }
 
     public String getCrashDataUrl() {
@@ -59,5 +62,13 @@ public class SampleUrl {
 
     public void setActivityLifeUrl(String activityLifeUrl) {
         this.activityLifeUrl = activityLifeUrl;
+    }
+
+    public String getMotionEventUrl() {
+        return motionEventUrl;
+    }
+
+    public void setMotionEventUrl(String motionEventUrl) {
+        this.motionEventUrl = motionEventUrl;
     }
 }

@@ -55,10 +55,16 @@ public class SampleUrlManager {
         return sampleUrl == null ? null : sampleUrl.getActivityLifeUrl();
     }
 
+    public String getMotionEventUrl() {
+        checkSampleUrl();
+        return sampleUrl == null ? null : sampleUrl.getMotionEventUrl();
+    }
+
     private void checkSampleUrl() {
         if (sampleUrl == null) {
             sampleUrl = new SampleUrl(SAMPLE_OPERATION_DATA_URL, SAMPLE_DEVICE_DATA_URL
-                    , SAMPLE_INSTALL_DATA_URL, SAMPLE_PROCESS_DATA_URL, SAMPLE_OPERATION_DATA_URL);
+                    , SAMPLE_INSTALL_DATA_URL, SAMPLE_PROCESS_DATA_URL
+                    , SAMPLE_OPERATION_DATA_URL, SAMPLE_OPERATION_DATA_URL);
         }
     }
 }

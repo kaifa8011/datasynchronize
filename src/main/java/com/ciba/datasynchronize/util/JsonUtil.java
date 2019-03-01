@@ -147,8 +147,8 @@ public class JsonUtil {
         JSONArray jsonArray = null;
         try {
             jsonArray = new JSONArray();
-            JSONObject object = new JSONObject();
             for (int i = 0; i < operationDataList.size(); i++) {
+                JSONObject object = new JSONObject();
                 OperationData operationData = operationDataList.get(i);
                 object.put("operationType", operationData.getOperationType());
                 object.put("machineType", operationData.getMachineType());
