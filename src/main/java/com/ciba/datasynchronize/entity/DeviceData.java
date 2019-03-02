@@ -191,6 +191,16 @@ public class DeviceData {
 
     private CustomBluetoothInfo bluetoothInfo;
 
+    private String wordSize;
+
+    public String getWordSize() {
+        return wordSize;
+    }
+
+    public void setWordSize(String wordSize) {
+        this.wordSize = wordSize;
+    }
+
     public CustomBluetoothInfo getBluetoothInfo() {
         return bluetoothInfo;
     }

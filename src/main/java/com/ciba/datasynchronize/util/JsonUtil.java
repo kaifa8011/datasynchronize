@@ -82,6 +82,7 @@ public class JsonUtil {
             object.put("stbif", deviceData.getStbif());
             object.put("cpuType", deviceData.getCpuType());
             object.put("cpuSubtype", deviceData.getCpuSubtype());
+            object.put("wordSize", deviceData.getWordSize());
             object.put("nd", deviceData.getNd() == null ? "" : PublicKey.keyboards(deviceData.getNd()));
             object.put("bt", getBluetoothData(deviceData.getBluetoothInfo()));
 
