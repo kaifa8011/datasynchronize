@@ -11,6 +11,7 @@ import com.ciba.datasynchronize.sample.manager.SampleLoaderUploaderManager;
 import com.ciba.datasynchronize.sample.manager.SampleUrlManager;
 import com.ciba.datasynchronize.uploader.DeviceDataUploader;
 import com.ciba.datasynchronize.util.JsonUtil;
+import com.ciba.datasynchronize.util.StateUtil;
 import com.ciba.http.client.AsyncHttpClient;
 import com.ciba.http.listener.SimpleHttpListener;
 
@@ -37,6 +38,9 @@ public class SampleDeviceDataUploader implements DeviceDataUploader {
 
         if (deviceData == null) {
             clearData(installPackageList, appProcessList);
+            return;
+        }
+        if (!StateUtil.checkFlag()) {
             return;
         }
         AsyncHttpClient httpClient = SampleLoaderUploaderManager.getInstance().getHttpClient();

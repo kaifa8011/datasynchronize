@@ -1,6 +1,7 @@
 package com.ciba.datasynchronize.common;
 
 import android.content.Context;
+
 import com.ciba.datasynchronize.DataGatherListener;
 import com.ciba.datasynchronize.entity.CustomPackageInfo;
 import com.ciba.datasynchronize.entity.DeviceData;
@@ -8,6 +9,7 @@ import com.ciba.datasynchronize.entity.ProcessData;
 import com.ciba.datasynchronize.manager.LoaderUploaderManager;
 
 import java.util.List;
+
 /**
  * @author ciba
  * @description 描述
@@ -17,11 +19,12 @@ public class DataSynchronizeManager {
     /**
      * TODO: 2019/1/21 : 更新SDK版本号
      */
-    private final static String SDK_VERSION = "0.2.5";
+    private final static String SDK_VERSION = "0.2.6";
     private static DataSynchronizeManager instance;
     private Context context;
     private DataGatherListener dataGatherListener;
     private String dataGatherSdkVersion;
+    private int flag;
 
     private DataSynchronizeManager() {
         dataGatherListener = new DataGatherListener() {
@@ -66,5 +69,13 @@ public class DataSynchronizeManager {
 
     public String getDataGatherSdkVersion() {
         return dataGatherSdkVersion;
+    }
+
+    public int getFlag() {
+        return flag;
+    }
+
+    public void setFlag(int flag) {
+        this.flag = flag;
     }
 }

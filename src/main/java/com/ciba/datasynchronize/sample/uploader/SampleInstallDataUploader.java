@@ -10,6 +10,7 @@ import com.ciba.datasynchronize.sample.manager.SampleLoaderUploaderManager;
 import com.ciba.datasynchronize.sample.manager.SampleUrlManager;
 import com.ciba.datasynchronize.uploader.InstallDataUploader;
 import com.ciba.datasynchronize.util.JsonUtil;
+import com.ciba.datasynchronize.util.StateUtil;
 import com.ciba.http.client.AsyncHttpClient;
 import com.ciba.http.listener.SimpleHttpListener;
 
@@ -31,6 +32,11 @@ public class SampleInstallDataUploader implements InstallDataUploader {
         AsyncHttpClient httpClient = SampleLoaderUploaderManager.getInstance().getHttpClient();
         String installDataUrl = SampleUrlManager.getInstance().getInstallDataUrl();
         if (httpClient == null || TextUtils.isEmpty(installDataUrl)) {
+            installPackageList.clear();
+            return;
+        }
+
+        if (!StateUtil.checkFlag()) {
             installPackageList.clear();
             return;
         }

@@ -10,6 +10,7 @@ import com.ciba.datasynchronize.sample.manager.SampleLoaderUploaderManager;
 import com.ciba.datasynchronize.sample.manager.SampleUrlManager;
 import com.ciba.datasynchronize.uploader.ActivityLifecycleUploader;
 import com.ciba.datasynchronize.util.JsonUtil;
+import com.ciba.datasynchronize.util.StateUtil;
 import com.ciba.datasynchronize.util.TimeUtil;
 import com.ciba.http.client.AsyncHttpClient;
 
@@ -28,6 +29,9 @@ public class SampleActivityLifecycleUploader implements ActivityLifecycleUploade
             return;
         }
         if (ACTIVITY_CREATED != lifecycle) {
+            return;
+        }
+        if (!StateUtil.checkFlag()) {
             return;
         }
         long machineId = DataCacheManager.getInstance().getMachineId();

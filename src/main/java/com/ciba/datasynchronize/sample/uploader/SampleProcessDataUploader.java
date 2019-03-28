@@ -10,6 +10,7 @@ import com.ciba.datasynchronize.sample.manager.SampleLoaderUploaderManager;
 import com.ciba.datasynchronize.sample.manager.SampleUrlManager;
 import com.ciba.datasynchronize.uploader.ProcessDataUploader;
 import com.ciba.datasynchronize.util.JsonUtil;
+import com.ciba.datasynchronize.util.StateUtil;
 import com.ciba.http.client.AsyncHttpClient;
 
 import java.util.HashMap;
@@ -33,6 +34,12 @@ public class SampleProcessDataUploader implements ProcessDataUploader {
             processDataList.clear();
             return;
         }
+
+        if (!StateUtil.checkFlag()) {
+            processDataList.clear();
+            return;
+        }
+
         String json = JsonUtil.processData2JsonStr(processDataList);
         processDataList.clear();
 
