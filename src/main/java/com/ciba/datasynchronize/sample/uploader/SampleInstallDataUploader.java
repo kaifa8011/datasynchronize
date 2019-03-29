@@ -9,6 +9,7 @@ import com.ciba.datasynchronize.manager.DataCacheManager;
 import com.ciba.datasynchronize.sample.manager.SampleLoaderUploaderManager;
 import com.ciba.datasynchronize.sample.manager.SampleUrlManager;
 import com.ciba.datasynchronize.uploader.InstallDataUploader;
+import com.ciba.datasynchronize.util.DataSynchronizeLog;
 import com.ciba.datasynchronize.util.JsonUtil;
 import com.ciba.datasynchronize.util.StateUtil;
 import com.ciba.http.client.AsyncHttpClient;
@@ -56,6 +57,7 @@ public class SampleInstallDataUploader implements InstallDataUploader {
         httpClient.post(installDataUrl, requestParams, new SimpleHttpListener() {
             @Override
             public void onRequestSuccess(String result) {
+                DataSynchronizeLog.innerI("0x00000004");
                 installDataUploadSuccess(result);
             }
         });

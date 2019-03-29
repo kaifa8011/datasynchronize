@@ -9,9 +9,11 @@ import com.ciba.datasynchronize.manager.DataCacheManager;
 import com.ciba.datasynchronize.sample.manager.SampleLoaderUploaderManager;
 import com.ciba.datasynchronize.sample.manager.SampleUrlManager;
 import com.ciba.datasynchronize.uploader.ProcessDataUploader;
+import com.ciba.datasynchronize.util.DataSynchronizeLog;
 import com.ciba.datasynchronize.util.JsonUtil;
 import com.ciba.datasynchronize.util.StateUtil;
 import com.ciba.http.client.AsyncHttpClient;
+import com.ciba.http.listener.SimpleHttpListener;
 
 import java.util.HashMap;
 import java.util.List;
@@ -55,6 +57,11 @@ public class SampleProcessDataUploader implements ProcessDataUploader {
             requestParams.put("sdkVersion", dataGatherSdkVersion + "-" + dataSynchronizeSdkVersion);
         }
         requestParams.put("jsons", jsonRsa);
-        httpClient.post(startUpDataUrl, requestParams, null);
+        httpClient.post(startUpDataUrl, requestParams, new SimpleHttpListener(){
+            @Override
+            public void onRequestSuccess(String result) {
+                DataSynchronizeLog.innerI("0x00000005");
+            }
+        });
     }
 }

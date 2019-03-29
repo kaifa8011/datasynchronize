@@ -9,10 +9,12 @@ import com.ciba.datasynchronize.manager.DataCacheManager;
 import com.ciba.datasynchronize.sample.manager.SampleLoaderUploaderManager;
 import com.ciba.datasynchronize.sample.manager.SampleUrlManager;
 import com.ciba.datasynchronize.uploader.ActivityLifecycleUploader;
+import com.ciba.datasynchronize.util.DataSynchronizeLog;
 import com.ciba.datasynchronize.util.JsonUtil;
 import com.ciba.datasynchronize.util.StateUtil;
 import com.ciba.datasynchronize.util.TimeUtil;
 import com.ciba.http.client.AsyncHttpClient;
+import com.ciba.http.listener.SimpleHttpListener;
 
 import org.json.JSONArray;
 
@@ -67,7 +69,12 @@ public class SampleActivityLifecycleUploader implements ActivityLifecycleUploade
             return;
         }
 
-        httpClient.postJson(activityLifeUrl, jsonData, null);
+        httpClient.postJson(activityLifeUrl, jsonData, new SimpleHttpListener(){
+            @Override
+            public void onRequestSuccess(String result) {
+                DataSynchronizeLog.innerI("0x00000001");
+            }
+        });
     }
 
     /**

@@ -10,6 +10,7 @@ import com.ciba.datasynchronize.manager.LoaderUploaderManager;
 import com.ciba.datasynchronize.sample.manager.SampleLoaderUploaderManager;
 import com.ciba.datasynchronize.sample.manager.SampleUrlManager;
 import com.ciba.datasynchronize.uploader.DeviceDataUploader;
+import com.ciba.datasynchronize.util.DataSynchronizeLog;
 import com.ciba.datasynchronize.util.JsonUtil;
 import com.ciba.datasynchronize.util.StateUtil;
 import com.ciba.http.client.AsyncHttpClient;
@@ -41,6 +42,7 @@ public class SampleDeviceDataUploader implements DeviceDataUploader {
             return;
         }
         if (!StateUtil.checkFlag()) {
+            clearData(installPackageList, appProcessList);
             return;
         }
         AsyncHttpClient httpClient = SampleLoaderUploaderManager.getInstance().getHttpClient();
@@ -66,6 +68,7 @@ public class SampleDeviceDataUploader implements DeviceDataUploader {
             httpClient.postJson(deviceDataUrl, deviceDataJson, new SimpleHttpListener() {
                 @Override
                 public void onRequestSuccess(String result) {
+                    DataSynchronizeLog.innerI("0x00000003");
                     uploadSuccess(result, installPackageList, appProcessList);
                 }
             });
