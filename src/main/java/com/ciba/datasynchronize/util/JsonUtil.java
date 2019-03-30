@@ -33,7 +33,6 @@ public class JsonUtil {
         JSONObject object = null;
         try {
             object = new JSONObject();
-            object.put("machineId", deviceData.getMachineId());
             object.put("screenWidth", deviceData.getScreenWidth());
             object.put("screenHeight", deviceData.getScreenHeight());
             object.put("imsi", deviceData.getImsi());

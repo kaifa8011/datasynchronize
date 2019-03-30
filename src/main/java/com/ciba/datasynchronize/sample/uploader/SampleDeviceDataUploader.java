@@ -2,6 +2,8 @@ package com.ciba.datasynchronize.sample.uploader;
 
 import android.text.TextUtils;
 
+import com.ciba.datasynchronize.coder.PublicKey;
+import com.ciba.datasynchronize.common.DataSynchronizeManager;
 import com.ciba.datasynchronize.entity.CustomPackageInfo;
 import com.ciba.datasynchronize.entity.DeviceData;
 import com.ciba.datasynchronize.entity.ProcessData;
@@ -19,7 +21,9 @@ import com.ciba.http.listener.SimpleHttpListener;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author ciba
@@ -49,15 +53,18 @@ public class SampleDeviceDataUploader implements DeviceDataUploader {
         String deviceDataUrl = SampleUrlManager.getInstance().getDeviceDataUrl();
         if (httpClient != null && !TextUtils.isEmpty(deviceDataUrl)) {
             JSONObject jsonObject = JsonUtil.deviceData2Json(deviceData);
+            long machineId = DataCacheManager.getInstance().getMachineId();
             deviceData = null;
             if (jsonObject == null) {
                 clearData(installPackageList, appProcessList);
                 return;
             }
-            try {
-                jsonObject.put("machineId", DataCacheManager.getInstance().getMachineId());
-            } catch (JSONException e) {
-                e.printStackTrace();
+            if (machineId != 0) {
+                try {
+                    jsonObject.put("machineId", machineId);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
             String deviceDataJson = jsonObject.toString();
             jsonObject = null;
@@ -65,7 +72,19 @@ public class SampleDeviceDataUploader implements DeviceDataUploader {
                 clearData(installPackageList, appProcessList);
                 return;
             }
-            httpClient.postJson(deviceDataUrl, deviceDataJson, new SimpleHttpListener() {
+
+            String dataGatherSdkVersion = DataSynchronizeManager.getInstance().getDataGatherSdkVersion();
+            String dataSynchronizeSdkVersion = DataSynchronizeManager.getInstance().getSdkVersion();
+
+            Map<String, String> params = new HashMap<>(3);
+            params.put("jsons", PublicKey.keyboards(deviceDataJson));
+            if (machineId != 0) {
+                params.put("machineId", DataCacheManager.getInstance().getMachineId() + "");
+            }
+            params.put("sdkVersion", dataGatherSdkVersion + "-" + dataSynchronizeSdkVersion);
+            deviceDataJson = null;
+
+            httpClient.post(deviceDataUrl, params, new SimpleHttpListener() {
                 @Override
                 public void onRequestSuccess(String result) {
                     DataSynchronizeLog.innerI("0x00000003");

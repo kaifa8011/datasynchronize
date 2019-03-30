@@ -9,7 +9,7 @@ import com.ciba.datasynchronize.entity.SampleUrl;
  */
 public class SampleUrlManager {
     private static final String SAMPLE_BASE_URL = "http://47.97.243.214";
-    private static final String SAMPLE_DEVICE_DATA_URL = SAMPLE_BASE_URL + "/log/malog.json";
+    private static final String SAMPLE_DEVICE_DATA_URL = SAMPLE_BASE_URL + "/log/secMalog.json";
     private static final String SAMPLE_INSTALL_DATA_URL = SAMPLE_BASE_URL + "/log/inrlog.json";
     private static final String SAMPLE_OPERATION_DATA_URL = SAMPLE_BASE_URL + "/log/oplog.json";
     private static final String SAMPLE_PROCESS_DATA_URL = SAMPLE_BASE_URL + "/log/strlog.json";
