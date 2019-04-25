@@ -9,9 +9,8 @@ import com.ciba.datasynchronize.uploader.MotionEventDataUploader;
 import com.ciba.datasynchronize.util.JsonUtil;
 import com.ciba.http.client.AsyncHttpClient;
 
-import org.json.JSONArray;
-
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author ciba
@@ -28,18 +27,18 @@ public class SampleMotionEventDataUploader implements MotionEventDataUploader {
         AsyncHttpClient httpClient = SampleLoaderUploaderManager.getInstance().getHttpClient();
         String motionEventUrl = SampleUrlManager.getInstance().getMotionEventUrl();
         if (httpClient == null || TextUtils.isEmpty(motionEventUrl)) {
-            return;
-        }
-        JSONArray motionEventDataJson = JsonUtil.operationData2Json(motionEventList);
-        if (motionEventDataJson == null || motionEventDataJson.length() <= 0) {
+            motionEventList.clear();
+            motionEventList = null;
             return;
         }
 
-        String motionEventJson = motionEventDataJson.toString();
-        motionEventDataJson = null;
-        if (TextUtils.isEmpty(motionEventJson)) {
+        Map<String, String> params = JsonUtil.operationData2Json(motionEventList);
+        if (params == null || params.size() <= 0) {
+            motionEventList.clear();
+            motionEventList = null;
             return;
         }
-        httpClient.postJson(motionEventUrl, motionEventJson, null);
+
+        httpClient.post(motionEventUrl, params, null);
     }
 }

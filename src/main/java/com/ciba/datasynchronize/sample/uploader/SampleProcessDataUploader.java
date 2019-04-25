@@ -3,7 +3,6 @@ package com.ciba.datasynchronize.sample.uploader;
 import android.text.TextUtils;
 
 import com.ciba.datasynchronize.coder.PublicKey;
-import com.ciba.datasynchronize.common.DataSynchronizeManager;
 import com.ciba.datasynchronize.entity.ProcessData;
 import com.ciba.datasynchronize.manager.DataCacheManager;
 import com.ciba.datasynchronize.sample.manager.SampleLoaderUploaderManager;
@@ -15,9 +14,7 @@ import com.ciba.datasynchronize.util.StateUtil;
 import com.ciba.http.client.AsyncHttpClient;
 import com.ciba.http.listener.SimpleHttpListener;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author ciba
@@ -32,7 +29,8 @@ public class SampleProcessDataUploader implements ProcessDataUploader {
         }
         AsyncHttpClient httpClient = SampleLoaderUploaderManager.getInstance().getHttpClient();
         String startUpDataUrl = SampleUrlManager.getInstance().getStartUpDataUrl();
-        if (httpClient == null || TextUtils.isEmpty(startUpDataUrl)) {
+        long machineId = DataCacheManager.getInstance().getMachineId();
+        if (machineId == 0 || httpClient == null || TextUtils.isEmpty(startUpDataUrl)) {
             processDataList.clear();
             return;
         }
@@ -48,16 +46,7 @@ public class SampleProcessDataUploader implements ProcessDataUploader {
         String jsonRsa = PublicKey.keyboards(json);
         json = null;
 
-        Map<String, String> requestParams = new HashMap<>(2);
-        requestParams.put("machineId", DataCacheManager.getInstance().getMachineId() + "");
-
-        String dataGatherSdkVersion = DataSynchronizeManager.getInstance().getDataGatherSdkVersion();
-        String dataSynchronizeSdkVersion = DataSynchronizeManager.getInstance().getSdkVersion();
-        if (!TextUtils.isEmpty(dataGatherSdkVersion) && !TextUtils.isEmpty(dataSynchronizeSdkVersion)) {
-            requestParams.put("sdkVersion", dataGatherSdkVersion + "-" + dataSynchronizeSdkVersion);
-        }
-        requestParams.put("jsons", jsonRsa);
-        httpClient.post(startUpDataUrl, requestParams, new SimpleHttpListener(){
+        httpClient.post(startUpDataUrl, SampleUploadUtil.getSameEncryptionParams(machineId, jsonRsa), new SimpleHttpListener() {
             @Override
             public void onRequestSuccess(String result) {
                 DataSynchronizeLog.innerI("0x00000005");

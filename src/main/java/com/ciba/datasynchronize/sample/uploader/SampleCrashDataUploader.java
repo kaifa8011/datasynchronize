@@ -14,8 +14,9 @@ import com.ciba.datasynchronize.util.TimeUtil;
 import com.ciba.http.client.AsyncHttpClient;
 import com.ciba.http.listener.SimpleHttpListener;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.util.Map;
 
 /**
  * @author ciba
@@ -34,18 +35,13 @@ public class SampleCrashDataUploader implements CrashDataUploader {
         if (httpClient == null || TextUtils.isEmpty(crashDataUrl)) {
             return;
         }
-        JSONArray crashDataJson = JsonUtil.operationData2Json(createOperationData(OperationData.TYPE_CRASH, crashData));
+        Map<String, String> params = JsonUtil.operationData2Json(createOperationData(OperationData.TYPE_CRASH, crashData));
         crashData = null;
-        if (crashDataJson == null || crashDataJson.length() <= 0) {
+        if (params == null || params.size() <= 0) {
             return;
         }
 
-        String crashJson = crashDataJson.toString();
-        crashDataJson = null;
-        if (TextUtils.isEmpty(crashJson)) {
-            return;
-        }
-        httpClient.postJson(crashDataUrl, crashJson, new SimpleHttpListener() {
+        httpClient.post(crashDataUrl, params, new SimpleHttpListener() {
             @Override
             public void onRequestSuccess(String result) {
                 DataSynchronizeLog.innerI("0x00000002");

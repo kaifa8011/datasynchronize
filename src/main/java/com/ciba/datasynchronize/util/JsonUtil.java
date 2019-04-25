@@ -10,6 +10,7 @@ import com.ciba.datasynchronize.entity.DeviceData;
 import com.ciba.datasynchronize.entity.OperationData;
 import com.ciba.datasynchronize.entity.ProcessData;
 import com.ciba.datasynchronize.manager.DataCacheManager;
+import com.ciba.datasynchronize.sample.uploader.SampleUploadUtil;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -134,14 +135,15 @@ public class JsonUtil {
         return keyboards;
     }
 
-    public static JSONArray operationData2Json(OperationData operationData) {
+    public static Map<String, String> operationData2Json(OperationData operationData) {
         List<OperationData> operationDataList = new ArrayList<>();
         operationDataList.add(operationData);
         return operationData2Json(operationDataList);
     }
 
-    public static JSONArray operationData2Json(List<OperationData> operationDataList) {
-        if (operationDataList == null || operationDataList.isEmpty()) {
+    public static Map<String, String> operationData2Json(List<OperationData> operationDataList) {
+        long machineId = DataCacheManager.getInstance().getMachineId();
+        if (machineId == 0 || operationDataList == null || operationDataList.isEmpty()) {
             return null;
         }
         JSONArray jsonArray = null;
@@ -165,10 +167,11 @@ public class JsonUtil {
                 jsonArray.put(object);
             }
             operationDataList.clear();
+            return SampleUploadUtil.getSameEncryptionParams(machineId, PublicKey.keyboards(jsonArray.toString()));
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return jsonArray;
+        return null;
     }
 
     private static String map2Json(Map<String, String> params) {

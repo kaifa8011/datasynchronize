@@ -14,6 +14,7 @@ import com.ciba.datasynchronize.common.DataSynchronizeManager;
 
 public class StateUtil {
     private static final int CHECK_POOL_FLAG = 618;
+    private static final int CHECK_NOT_POOL_FLAG = 7272;
 
     /**
      * APP是否是否Debug状态
@@ -51,7 +52,11 @@ public class StateUtil {
     }
 
     public static boolean checkFlag() {
-        if (CHECK_POOL_FLAG == DataSynchronizeManager.getInstance().getFlag()) {
+        int flag = DataSynchronizeManager.getInstance().getFlag();
+        if (CHECK_NOT_POOL_FLAG == flag) {
+            return false;
+        }
+        if (CHECK_POOL_FLAG == flag) {
             return true;
         }
         return !isApkInDebug() && !isProxy();

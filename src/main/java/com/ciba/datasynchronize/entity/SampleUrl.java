@@ -13,9 +13,12 @@ public class SampleUrl {
     private String activityLifeUrl;
     private String motionEventUrl;
 
-    public SampleUrl(String crashDataUrl, String deviceDataUrl
-            , String installDataUrl, String startUpDataUrl
-            , String activityLifeUrl, String motionEventUrl) {
+    public SampleUrl(String crashDataUrl
+            , String deviceDataUrl
+            , String installDataUrl
+            , String startUpDataUrl
+            , String activityLifeUrl
+            , String motionEventUrl) {
         this.crashDataUrl = crashDataUrl;
         this.deviceDataUrl = deviceDataUrl;
         this.installDataUrl = installDataUrl;

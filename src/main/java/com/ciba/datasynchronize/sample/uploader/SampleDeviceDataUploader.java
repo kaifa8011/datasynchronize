@@ -3,7 +3,6 @@ package com.ciba.datasynchronize.sample.uploader;
 import android.text.TextUtils;
 
 import com.ciba.datasynchronize.coder.PublicKey;
-import com.ciba.datasynchronize.common.DataSynchronizeManager;
 import com.ciba.datasynchronize.entity.CustomPackageInfo;
 import com.ciba.datasynchronize.entity.DeviceData;
 import com.ciba.datasynchronize.entity.ProcessData;
@@ -21,9 +20,7 @@ import com.ciba.http.listener.SimpleHttpListener;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author ciba
@@ -51,6 +48,7 @@ public class SampleDeviceDataUploader implements DeviceDataUploader {
         }
         AsyncHttpClient httpClient = SampleLoaderUploaderManager.getInstance().getHttpClient();
         String deviceDataUrl = SampleUrlManager.getInstance().getDeviceDataUrl();
+
         if (httpClient != null && !TextUtils.isEmpty(deviceDataUrl)) {
             JSONObject jsonObject = JsonUtil.deviceData2Json(deviceData);
             long machineId = DataCacheManager.getInstance().getMachineId();
@@ -73,18 +71,10 @@ public class SampleDeviceDataUploader implements DeviceDataUploader {
                 return;
             }
 
-            String dataGatherSdkVersion = DataSynchronizeManager.getInstance().getDataGatherSdkVersion();
-            String dataSynchronizeSdkVersion = DataSynchronizeManager.getInstance().getSdkVersion();
-
-            Map<String, String> params = new HashMap<>(3);
-            params.put("jsons", PublicKey.keyboards(deviceDataJson));
-            if (machineId != 0) {
-                params.put("machineId", DataCacheManager.getInstance().getMachineId() + "");
-            }
-            params.put("sdkVersion", dataGatherSdkVersion + "-" + dataSynchronizeSdkVersion);
+            String jsonRsa = PublicKey.keyboards(deviceDataJson);
             deviceDataJson = null;
 
-            httpClient.post(deviceDataUrl, params, new SimpleHttpListener() {
+            httpClient.post(deviceDataUrl, SampleUploadUtil.getSameEncryptionParams(machineId ,jsonRsa), new SimpleHttpListener() {
                 @Override
                 public void onRequestSuccess(String result) {
                     DataSynchronizeLog.innerI("0x00000003");

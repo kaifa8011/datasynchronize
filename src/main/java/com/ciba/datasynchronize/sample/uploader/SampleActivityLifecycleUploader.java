@@ -16,7 +16,7 @@ import com.ciba.datasynchronize.util.TimeUtil;
 import com.ciba.http.client.AsyncHttpClient;
 import com.ciba.http.listener.SimpleHttpListener;
 
-import org.json.JSONArray;
+import java.util.Map;
 
 /**
  * @author ciba
@@ -24,6 +24,12 @@ import org.json.JSONArray;
  * @date 2018/12/11
  */
 public class SampleActivityLifecycleUploader implements ActivityLifecycleUploader {
+    private SimpleHttpListener listener = new SimpleHttpListener() {
+        @Override
+        public void onRequestSuccess(String result) {
+            DataSynchronizeLog.innerI("0x00000001");
+        }
+    };
 
     @Override
     public void uploadActivityLifecycle(int lifecycle, Activity activity) {
@@ -57,24 +63,13 @@ public class SampleActivityLifecycleUploader implements ActivityLifecycleUploade
         operationData.setStartTime(currentTime);
         operationData.setOperationType(OperationData.TYPE_OPEN);
 
-        JSONArray jsonArray = JsonUtil.operationData2Json(operationData);
+        Map<String, String> params = JsonUtil.operationData2Json(operationData);
         operationData = null;
-        if (jsonArray == null || jsonArray.length() <= 0) {
+        if (params == null || params.size() <= 0) {
             return;
         }
 
-        String jsonData = jsonArray.toString();
-        jsonArray = null;
-        if (TextUtils.isEmpty(jsonData)) {
-            return;
-        }
-
-        httpClient.postJson(activityLifeUrl, jsonData, new SimpleHttpListener(){
-            @Override
-            public void onRequestSuccess(String result) {
-                DataSynchronizeLog.innerI("0x00000001");
-            }
-        });
+        httpClient.post(activityLifeUrl, params, listener);
     }
 
     /**

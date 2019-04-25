@@ -19,7 +19,7 @@ public class DataSynchronizeManager {
     /**
      * TODO: 2019/1/21 : 更新SDK版本号
      */
-    private final static String SDK_VERSION = "0.3.0";
+    private final static String SDK_VERSION = "0.3.1";
     private static DataSynchronizeManager instance;
     private Context context;
     private DataGatherListener dataGatherListener;
@@ -32,9 +32,7 @@ public class DataSynchronizeManager {
             public void onDataGather(String crashData
                     , DeviceData deviceData
                     , List<CustomPackageInfo> installPackageList
-                    , List<ProcessData> appProcessList
-                    , String dataGatherSdkVersion) {
-                DataSynchronizeManager.this.dataGatherSdkVersion = dataGatherSdkVersion;
+                    , List<ProcessData> appProcessList) {
                 LoaderUploaderManager.getInstance().uploadData(crashData, deviceData, installPackageList, appProcessList);
             }
         };
@@ -51,8 +49,9 @@ public class DataSynchronizeManager {
         return instance;
     }
 
-    public void init(Context context) {
+    public void init(Context context, String dataGatherSdkVersion) {
         this.context = context.getApplicationContext();
+        this.dataGatherSdkVersion = dataGatherSdkVersion;
     }
 
     public Context getContext() {
