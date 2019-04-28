@@ -9,6 +9,6 @@ import java.util.List;
  * @description 描述
  * @date 2018/12/4
  */
-public interface MotionEventDataUploader {
-    void uploadMotionEventData(List<OperationData> motionEventList);
+public interface OperationDataUploader {
+    void uploadOperationDataData(List<OperationData> motionEventList);
 }

@@ -5,7 +5,7 @@ import android.text.TextUtils;
 import com.ciba.datasynchronize.entity.OperationData;
 import com.ciba.datasynchronize.sample.manager.SampleLoaderUploaderManager;
 import com.ciba.datasynchronize.sample.manager.SampleUrlManager;
-import com.ciba.datasynchronize.uploader.MotionEventDataUploader;
+import com.ciba.datasynchronize.uploader.OperationDataUploader;
 import com.ciba.datasynchronize.util.JsonUtil;
 import com.ciba.http.client.AsyncHttpClient;
 
@@ -17,10 +17,10 @@ import java.util.Map;
  * @description Crash信息上传样例
  * @date 2018/12/4
  */
-public class SampleMotionEventDataUploader implements MotionEventDataUploader {
+public class SampleOperationDataUploader implements OperationDataUploader {
 
     @Override
-    public void uploadMotionEventData(List<OperationData> motionEventList) {
+    public void uploadOperationDataData(List<OperationData> motionEventList) {
         if (motionEventList == null || motionEventList.isEmpty()) {
             return;
         }
