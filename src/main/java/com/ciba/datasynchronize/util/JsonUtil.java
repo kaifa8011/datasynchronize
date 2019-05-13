@@ -17,6 +17,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -164,6 +165,14 @@ public class JsonUtil {
                 object.put("packageName", operationData.getPackageName());
                 object.put("versionNo", operationData.getVersionNo());
                 object.put("machineId", operationData.getMachineId());
+                Map<String, String> customParam = operationData.getCustomParam();
+                if (customParam != null && customParam.size() > 0) {
+                    Iterator<Map.Entry<String, String>> iterator = customParam.entrySet().iterator();
+                    while (iterator.hasNext()) {
+                        Map.Entry<String, String> next = iterator.next();
+                        object.put(next.getKey(), next.getValue());
+                    }
+                }
                 jsonArray.put(object);
             }
             operationDataList.clear();

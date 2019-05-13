@@ -19,7 +19,7 @@ public class DataSynchronizeManager {
     /**
      * TODO: 2019/1/21 : 更新SDK版本号
      */
-    private final static String SDK_VERSION = "0.3.2";
+    private final static String SDK_VERSION = "0.3.3";
     private static DataSynchronizeManager instance;
     private Context context;
     private DataGatherListener dataGatherListener;

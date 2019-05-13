@@ -1,5 +1,7 @@
 package com.ciba.datasynchronize.entity;
 
+import java.util.Map;
+
 /**
  * Created by lenovo on 2018/1/25.
  */
@@ -20,6 +22,7 @@ public class OperationData {
     private String endTime;
     private String packageName;
     private String versionNo;
+    private Map<String, String> customParam;
     private long machineId;
 
     public int getMachineType() {
@@ -116,6 +119,14 @@ public class OperationData {
 
     public void setMachineId(long machineId) {
         this.machineId = machineId;
+    }
+
+    public Map<String, String> getCustomParam() {
+        return customParam;
+    }
+
+    public void setCustomParam(Map<String, String> customParam) {
+        this.customParam = customParam;
     }
 
     @Override
