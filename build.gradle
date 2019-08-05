@@ -37,10 +37,10 @@ android {
 //    userOrg = 'kaifa8011ol'               // bintray注册的用户名
 //    groupId = 'com.ciba'
 //    artifactId = 'datasynchronize'                // bintray创建的package
-//    publishVersion = '0.3.3'
+//    publishVersion = '0.4.1'
 //}
 
 dependencies {
     testImplementation 'junit:junit:4.12'
-    compileOnly 'com.ciba:http:0.0.11'
+    compileOnly 'com.ciba:http:0.0.13'
 }
