@@ -193,6 +193,16 @@ public class DeviceData {
 
     private String wordSize;
 
+    private String uqid;
+
+    public String getUqid() {
+        return uqid;
+    }
+
+    public void setUqid(String uqid) {
+        this.uqid = uqid;
+    }
+
     public String getWordSize() {
         return wordSize;
     }
