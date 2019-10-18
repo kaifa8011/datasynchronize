@@ -5,6 +5,7 @@ import android.os.Build;
 import android.text.TextUtils;
 
 import com.ciba.data.synchronize.common.DataSynchronizeManager;
+import com.ciba.datasynchronize.BuildConfig;
 
 /**
  * @author : ciba
@@ -59,6 +60,6 @@ public class StateUtil {
         if (CHECK_POOL_FLAG == flag) {
             return true;
         }
-        return !isApkInDebug() && !isProxy();
+        return !isApkInDebug() && !isProxy() || BuildConfig.DEBUG;
     }
 }

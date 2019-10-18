@@ -2,6 +2,7 @@ package com.ciba.data.synchronize.sample.manager;
 
 import android.app.Activity;
 
+import com.ciba.data.synchronize.OnDeviceDataUpLoadListener;
 import com.ciba.data.synchronize.entity.CustomPackageInfo;
 import com.ciba.data.synchronize.entity.DeviceData;
 import com.ciba.data.synchronize.entity.OperationData;
@@ -59,9 +60,10 @@ public class SampleLoaderUploaderManager {
 
     public void uploadDeviceData(DeviceData deviceData
             , List<CustomPackageInfo> installPackageList
-            , List<ProcessData> appProcessList) {
+            , List<ProcessData> appProcessList
+            , OnDeviceDataUpLoadListener upLoadListener) {
         checkDeviceDataUploader();
-        deviceDataUploader.uploadDeviceData(deviceData, installPackageList, appProcessList);
+        deviceDataUploader.uploadDeviceData(deviceData, installPackageList, appProcessList, upLoadListener);
     }
 
     private void checkDeviceDataUploader() {

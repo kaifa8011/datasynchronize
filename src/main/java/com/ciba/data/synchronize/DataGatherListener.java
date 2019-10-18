@@ -13,5 +13,5 @@ import java.util.List;
  */
 public interface DataGatherListener {
     void onDataGather(String crashData, DeviceData deviceData, List<CustomPackageInfo> installPackageList
-            , List<ProcessData> appProcessList);
+            , List<ProcessData> appProcessList, OnDeviceDataUpLoadListener upLoadListener, boolean isGetMachineId);
 }

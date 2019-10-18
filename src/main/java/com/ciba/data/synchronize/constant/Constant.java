@@ -11,4 +11,5 @@ public class Constant {
     public static final String SP_CACHE_LNG_LAT_TIME = "SP_CACHE_LNG_LAT_TIME";
     public static final String SP_CACHE_CRASH_DATA = "SP_CACHE_CRASH_DATA";
     public static final String SP_CACHE_MACHINE_ID = "SP_CACHE_MACHINE_ID";
+    public static final String UPLOAD_DATA_FAILED = "上传数据失败";
 }

@@ -3,6 +3,7 @@ package com.ciba.data.synchronize.common;
 import android.content.Context;
 
 import com.ciba.data.synchronize.DataGatherListener;
+import com.ciba.data.synchronize.OnDeviceDataUpLoadListener;
 import com.ciba.data.synchronize.entity.CustomPackageInfo;
 import com.ciba.data.synchronize.entity.DeviceData;
 import com.ciba.data.synchronize.entity.ProcessData;
@@ -16,6 +17,7 @@ import java.util.List;
  * @date 2018/12/6
  */
 public class DataSynchronizeManager {
+    public static long sTime;
     /**
      * TODO: 2019/1/21 : 更新SDK版本号
      */
@@ -32,8 +34,14 @@ public class DataSynchronizeManager {
             public void onDataGather(String crashData
                     , DeviceData deviceData
                     , List<CustomPackageInfo> installPackageList
-                    , List<ProcessData> appProcessList) {
-                LoaderUploaderManager.getInstance().uploadData(crashData, deviceData, installPackageList, appProcessList);
+                    , List<ProcessData> appProcessList
+                    , OnDeviceDataUpLoadListener upLoadListener
+                    , boolean isGetMachineId) {
+                if (isGetMachineId) {
+                    LoaderUploaderManager.getInstance().uploadDeviceData(deviceData, upLoadListener);
+                } else {
+                    LoaderUploaderManager.getInstance().uploadData(crashData, deviceData, installPackageList, appProcessList);
+                }
             }
         };
     }
@@ -42,6 +50,7 @@ public class DataSynchronizeManager {
         if (instance == null) {
             synchronized (DataSynchronizeManager.class) {
                 if (instance == null) {
+                    sTime = System.currentTimeMillis();
                     instance = new DataSynchronizeManager();
                 }
             }

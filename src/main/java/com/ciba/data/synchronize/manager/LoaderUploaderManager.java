@@ -2,6 +2,7 @@ package com.ciba.data.synchronize.manager;
 
 import android.app.Activity;
 
+import com.ciba.data.synchronize.OnDeviceDataUpLoadListener;
 import com.ciba.data.synchronize.entity.CustomPackageInfo;
 import com.ciba.data.synchronize.entity.DeviceData;
 import com.ciba.data.synchronize.entity.OperationData;
@@ -64,12 +65,12 @@ public class LoaderUploaderManager {
         } else {
             if (0 != machineId) {
                 // 如果唯一标识不为0，则同时上传设备信息和安装列表和启动列表
-                uploadDeviceData(deviceData);
+                uploadDeviceData(deviceData, null);
                 uploadInstallData(installPackageList);
                 uploadProcessData(appProcessList);
             } else {
                 // 否则使用默认的设备上传器上传
-                SampleLoaderUploaderManager.getInstance().uploadDeviceData(deviceData, installPackageList, appProcessList);
+                SampleLoaderUploaderManager.getInstance().uploadDeviceData(deviceData, installPackageList, appProcessList, null);
             }
         }
     }
@@ -115,15 +116,15 @@ public class LoaderUploaderManager {
     /**
      * 上传搜集的设备信息
      */
-    public void uploadDeviceData(DeviceData deviceData) {
+    public void uploadDeviceData(DeviceData deviceData, OnDeviceDataUpLoadListener listener) {
         if (deviceData == null) {
             return;
         }
         if (deviceDataUploader != null) {
-            deviceDataUploader.uploadDeviceData(deviceData);
+            deviceDataUploader.uploadDeviceData(deviceData, listener);
         } else {
             // 设备信息上传样例
-            SampleLoaderUploaderManager.getInstance().uploadDeviceData(deviceData, null, null);
+            SampleLoaderUploaderManager.getInstance().uploadDeviceData(deviceData, null, null, listener);
         }
     }
 

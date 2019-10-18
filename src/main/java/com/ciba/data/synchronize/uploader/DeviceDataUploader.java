@@ -1,5 +1,6 @@
 package com.ciba.data.synchronize.uploader;
 
+import com.ciba.data.synchronize.OnDeviceDataUpLoadListener;
 import com.ciba.data.synchronize.entity.DeviceData;
 
 /**
@@ -12,4 +13,7 @@ public interface DeviceDataUploader {
      * 上传手机的设备信息
      */
     void uploadDeviceData(DeviceData deviceData);
+
+
+    void uploadDeviceData(DeviceData deviceData, OnDeviceDataUpLoadListener listener);
 }

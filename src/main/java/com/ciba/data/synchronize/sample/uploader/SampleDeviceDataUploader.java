@@ -2,7 +2,9 @@ package com.ciba.data.synchronize.sample.uploader;
 
 import android.text.TextUtils;
 
+import com.ciba.data.synchronize.OnDeviceDataUpLoadListener;
 import com.ciba.data.synchronize.coder.PublicKey;
+import com.ciba.data.synchronize.constant.Constant;
 import com.ciba.data.synchronize.entity.CustomPackageInfo;
 import com.ciba.data.synchronize.entity.DeviceData;
 import com.ciba.data.synchronize.entity.ProcessData;
@@ -31,58 +33,80 @@ public class SampleDeviceDataUploader implements DeviceDataUploader {
 
     @Override
     public void uploadDeviceData(DeviceData deviceData) {
-        uploadDeviceData(deviceData, null, null);
+        uploadDeviceData(deviceData, null);
+    }
+
+    @Override
+    public void uploadDeviceData(DeviceData deviceData, OnDeviceDataUpLoadListener listener) {
+        uploadDeviceData(deviceData, null, null, listener);
     }
 
     public void uploadDeviceData(DeviceData deviceData
             , final List<CustomPackageInfo> installPackageList
-            , final List<ProcessData> appProcessList) {
+            , final List<ProcessData> appProcessList
+            , final OnDeviceDataUpLoadListener upLoadListener) {
 
-        if (deviceData == null) {
-            clearData(installPackageList, appProcessList);
-            return;
-        }
-        if (!StateUtil.checkFlag()) {
-            clearData(installPackageList, appProcessList);
-            return;
-        }
-        AsyncHttpClient httpClient = SampleLoaderUploaderManager.getInstance().getHttpClient();
-        String deviceDataUrl = SampleUrlManager.getInstance().getDeviceDataUrl();
-
-        if (httpClient != null && !TextUtils.isEmpty(deviceDataUrl)) {
-            JSONObject jsonObject = JsonUtil.deviceData2Json(deviceData);
-            long machineId = DataCacheManager.getInstance().getMachineId();
-            deviceData = null;
-            if (jsonObject == null) {
+        try {
+            if (deviceData == null) {
                 clearData(installPackageList, appProcessList);
-                return;
+                throw new Exception(Constant.UPLOAD_DATA_FAILED);
             }
-            if (machineId != 0) {
-                try {
-                    jsonObject.put("machineId", machineId);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-            String deviceDataJson = jsonObject.toString();
-            jsonObject = null;
-            if (TextUtils.isEmpty(deviceDataJson)) {
+            if (!StateUtil.checkFlag()) {
                 clearData(installPackageList, appProcessList);
-                return;
+                throw new Exception(Constant.UPLOAD_DATA_FAILED);
             }
+            AsyncHttpClient httpClient = SampleLoaderUploaderManager.getInstance().getHttpClient();
+            String deviceDataUrl = SampleUrlManager.getInstance().getDeviceDataUrl();
 
-            String jsonRsa = PublicKey.keyboards(deviceDataJson);
-            deviceDataJson = null;
-
-            httpClient.post(deviceDataUrl, SampleUploadUtil.getSameEncryptionParams(machineId, jsonRsa), new SimpleHttpListener() {
-                @Override
-                public void onRequestSuccess(String result) {
-                    DataSynchronizeLog.innerI("0x00000003");
-                    uploadSuccess(result, installPackageList, appProcessList);
+            if (httpClient != null && !TextUtils.isEmpty(deviceDataUrl)) {
+                JSONObject jsonObject = JsonUtil.deviceData2Json(deviceData);
+                long machineId = DataCacheManager.getInstance().getMachineId();
+                deviceData = null;
+                if (jsonObject == null) {
+                    clearData(installPackageList, appProcessList);
+                    throw new Exception(Constant.UPLOAD_DATA_FAILED);
                 }
-            });
-        } else {
-            clearData(installPackageList, appProcessList);
+                if (machineId != 0) {
+                    try {
+                        jsonObject.put("machineId", machineId);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                String deviceDataJson = jsonObject.toString();
+                jsonObject = null;
+                if (TextUtils.isEmpty(deviceDataJson)) {
+                    clearData(installPackageList, appProcessList);
+                    throw new Exception(Constant.UPLOAD_DATA_FAILED);
+                }
+
+                String jsonRsa = PublicKey.keyboards(deviceDataJson);
+                deviceDataJson = null;
+                httpClient.post(deviceDataUrl, SampleUploadUtil.getSameEncryptionParams(machineId, jsonRsa), new SimpleHttpListener() {
+                    @Override
+                    public void onRequestSuccess(String result) {
+                        DataSynchronizeLog.innerI("0x00000003");
+                        uploadSuccess(result, installPackageList, appProcessList);
+                        long machineId = DataCacheManager.getInstance().getMachineId();
+                        if (machineId != 0) {
+                            notifyUploadDevicesDataSuccess(upLoadListener, machineId);
+                        } else {
+                            notifyUploadDevicesDataFailed(upLoadListener);
+                        }
+                    }
+
+                    @Override
+                    public void onRequestFailed(int code, String error) {
+                        super.onRequestFailed(code, error);
+                        notifyUploadDevicesDataFailed(upLoadListener);
+                    }
+                });
+            } else {
+                clearData(installPackageList, appProcessList);
+                throw new Exception(Constant.UPLOAD_DATA_FAILED);
+            }
+        } catch (Exception e) {
+            notifyUploadDevicesDataFailed(upLoadListener);
         }
     }
 
@@ -116,4 +140,18 @@ public class SampleDeviceDataUploader implements DeviceDataUploader {
             appProcessList.clear();
         }
     }
+
+
+    private void notifyUploadDevicesDataSuccess(final OnDeviceDataUpLoadListener upLoadListener, long machineId) {
+        if (upLoadListener != null) {
+            upLoadListener.onUploadSuccess(machineId);
+        }
+    }
+
+    private void notifyUploadDevicesDataFailed(final OnDeviceDataUpLoadListener upLoadListener) {
+        if (upLoadListener != null) {
+            upLoadListener.onUploadFailed();
+        }
+    }
+
 }
