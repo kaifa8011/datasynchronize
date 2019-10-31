@@ -1,16 +1,17 @@
 apply plugin: 'com.android.library'
-//apply plugin: 'com.novoda.bintray-release'
+apply plugin: 'com.novoda.bintray-release'
+
+def VERSION = '0.4.3'
 
 android {
     compileSdkVersion 28
 
 
-
     defaultConfig {
         minSdkVersion 11
         targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
+        versionCode 201910240
+        versionName VERSION
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -22,23 +23,53 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    //解决 JavaDoc 中文注释生成失败的问题
+    tasks.withType(Javadoc) {
+        options.addStringOption('Xdoclint:none', '-quiet')
+        options.addStringOption('encoding', 'UTF-8')
+        options.addStringOption('charSet', 'UTF-8')
+    }
+
+    lintOptions {
+        abortOnError false // 即使有报错也不会停止打包
+        checkReleaseBuilds false // 打包Release版本的时候也不进行Lint检测
+    }
 }
-//
-//tasks.withType(JavaCompile) {
-//    options.encoding = "UTF-8"
-//}
+
+task makeJar(type: Copy) {
+    //删除存在的
+    delete './build/libs/'
+    //设置拷贝的文件
+    from('./build/intermediates/intermediate-jars/release/')
+    //打进jar包后的文件目录
+    into('./build/libs/')
+    //将classes.jar放入build/libs/目录下
+    //include ,exclude参数来设置过滤
+    //（我们只关心classes.jar这个文件）
+    include('classes.jar')
+    //重命名
+    rename('classes.jar', "datasynchronize-${VERSION}.jar")
+}
+
+makeJar.dependsOn(build)
+
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
 //task javadoc(type: Javadoc) {
 //    source = android.sourceSets.main.java.srcDirs
 //    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
 //    options.encoding = "UTF-8"
 //}
-//
-//publish {
-//    userOrg = 'kaifa8011ol'               // bintray注册的用户名
-//    groupId = 'com.ciba'
-//    artifactId = 'datasynchronize'                // bintray创建的package
-//    publishVersion = '0.4.2'
-//}
+
+publish {
+    userOrg = 'kaifa8011ol'               // bintray注册的用户名
+    groupId = 'com.ciba'
+    artifactId = 'datasynchronize'                // bintray创建的package
+    publishVersion = VERSION
+}
 
 dependencies {
     testImplementation 'junit:junit:4.12'

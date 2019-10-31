@@ -8,6 +8,7 @@ import com.ciba.data.synchronize.entity.CustomPackageInfo;
 import com.ciba.data.synchronize.entity.DeviceData;
 import com.ciba.data.synchronize.entity.ProcessData;
 import com.ciba.data.synchronize.manager.LoaderUploaderManager;
+import com.ciba.datasynchronize.BuildConfig;
 
 import java.util.List;
 
@@ -17,11 +18,6 @@ import java.util.List;
  * @date 2018/12/6
  */
 public class DataSynchronizeManager {
-    public static long sTime;
-    /**
-     * TODO: 2019/1/21 : 更新SDK版本号
-     */
-    private final static String SDK_VERSION = "0.4.2";
     private static DataSynchronizeManager instance;
     private Context context;
     private DataGatherListener dataGatherListener;
@@ -50,7 +46,6 @@ public class DataSynchronizeManager {
         if (instance == null) {
             synchronized (DataSynchronizeManager.class) {
                 if (instance == null) {
-                    sTime = System.currentTimeMillis();
                     instance = new DataSynchronizeManager();
                 }
             }
@@ -72,7 +67,7 @@ public class DataSynchronizeManager {
     }
 
     public String getSdkVersion() {
-        return SDK_VERSION;
+        return BuildConfig.VERSION_NAME;
     }
 
     public String getDataGatherSdkVersion() {

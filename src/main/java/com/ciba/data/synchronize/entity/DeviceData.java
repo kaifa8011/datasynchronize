@@ -195,6 +195,16 @@ public class DeviceData {
 
     private String uqid;
 
+    private String oaid;
+
+    public String getOaid() {
+        return oaid;
+    }
+
+    public void setOaid(String oaid) {
+        this.oaid = oaid;
+    }
+
     public String getUqid() {
         return uqid;
     }

@@ -1,6 +1,7 @@
 package com.ciba.data.synchronize.sample.uploader;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.ciba.data.synchronize.OnDeviceDataUpLoadListener;
 import com.ciba.data.synchronize.coder.PublicKey;
