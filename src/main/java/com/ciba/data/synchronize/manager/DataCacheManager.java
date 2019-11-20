@@ -72,15 +72,20 @@ public class DataCacheManager {
      */
     public String getUserAgent() {
         if (TextUtils.isEmpty(userAgent)) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-                try {
-                    userAgent = WebSettings.getDefaultUserAgent(DataSynchronizeManager.getInstance().getContext());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    return getUserAgentWithWebViewOrProperty();
+            userAgent = SPUtil.getString(Constant.SP_CACHE_UA);
+            if (TextUtils.isEmpty(userAgent)) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                    try {
+                        userAgent = WebSettings.getDefaultUserAgent(DataSynchronizeManager.getInstance().getContext());
+                    } catch (Exception e) {
+                        userAgent = getUserAgentWithWebViewOrProperty();
+                    }
+                } else {
+                    userAgent = getUserAgentWithWebViewOrProperty();
                 }
-            } else {
-                return getUserAgentWithWebViewOrProperty();
+                if (!TextUtils.isEmpty(userAgent)) {
+                    SPUtil.putString(Constant.SP_CACHE_UA, userAgent);
+                }
             }
         }
         return userAgent;
