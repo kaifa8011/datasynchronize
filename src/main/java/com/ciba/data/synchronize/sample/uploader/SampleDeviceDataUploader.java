@@ -34,7 +34,7 @@ import java.util.Map;
  */
 public class SampleDeviceDataUploader implements DeviceDataUploader {
     private String mToken;
-    public static final int GET_MACHINE_ID_MAX_RETRY_COUNT = 5;
+    public static final int GET_MACHINE_ID_MAX_RETRY_COUNT = 3;
     private int mRetryCount;
     private Handler mHandler = new Handler(Looper.getMainLooper());
 
@@ -214,7 +214,7 @@ public class SampleDeviceDataUploader implements DeviceDataUploader {
                         installPackageList, appProcessList, upLoadListener);
                 mRetryCount++;
             }
-        }, 1500);
+        }, 2000);
     }
 
     private void clearData(List<CustomPackageInfo> installPackageList, List<ProcessData> appProcessList) {
