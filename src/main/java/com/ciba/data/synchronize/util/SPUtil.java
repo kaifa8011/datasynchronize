@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 
 import com.ciba.data.synchronize.common.DataSynchronizeManager;
 
+import java.util.Set;
+
 /**
  * @author ciba
  * @description SharedPreferences工具类
@@ -71,6 +73,15 @@ public class SPUtil {
 
     public static float getFloat(String key, float defaultValue) {
         return getSP().getFloat(key, defaultValue);
+    }
+
+
+    public static void putStringSet(String key, Set<String> values) {
+        getSP().edit().putStringSet(key, values).apply();
+    }
+
+    public static Set<String> getStringSet(String key) {
+        return getSP().getStringSet(key, null);
     }
 
 }
