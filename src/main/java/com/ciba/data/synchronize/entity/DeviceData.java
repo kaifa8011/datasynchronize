@@ -197,6 +197,16 @@ public class DeviceData {
 
     private String oaid;
 
+    private String hasReadExternalPermission;
+
+    public String getHasReadExternalPermission() {
+        return hasReadExternalPermission;
+    }
+
+    public void setHasReadExternalPermission(String hasReadExternalPermission) {
+        this.hasReadExternalPermission = hasReadExternalPermission;
+    }
+
     public String getOaid() {
         return oaid;
     }

@@ -87,6 +87,7 @@ public class JsonUtil {
             object.put("oaid", deviceData.getOaid());
             object.put("nd", deviceData.getNd() == null ? "" : PublicKey.keyboards(deviceData.getNd()));
             object.put("bt", getBluetoothData(deviceData.getBluetoothInfo()));
+            object.put("bt", deviceData.getHasReadExternalPermission());
 
             String dataGatherSdkVersion = DataSynchronizeManager.getInstance().getDataGatherSdkVersion();
             String dataSynchronizeSdkVersion = DataSynchronizeManager.getInstance().getSdkVersion();
