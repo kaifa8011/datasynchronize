@@ -16,4 +16,5 @@ public interface DeviceDataUploader {
 
 
     void uploadDeviceData(DeviceData deviceData, OnDeviceDataUpLoadListener listener);
+
 }

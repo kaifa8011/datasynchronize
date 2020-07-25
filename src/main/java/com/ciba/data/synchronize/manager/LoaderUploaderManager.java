@@ -9,6 +9,7 @@ import com.ciba.data.synchronize.entity.OperationData;
 import com.ciba.data.synchronize.entity.ProcessData;
 import com.ciba.data.synchronize.loder.LocationLoader;
 import com.ciba.data.synchronize.sample.manager.SampleLoaderUploaderManager;
+import com.ciba.data.synchronize.sample.uploader.SampleIPV6DataUploader;
 import com.ciba.data.synchronize.uploader.ActivityLifecycleUploader;
 import com.ciba.data.synchronize.uploader.CrashDataUploader;
 import com.ciba.data.synchronize.uploader.DeviceDataUploader;
@@ -198,5 +199,9 @@ public class LoaderUploaderManager {
         } else {
             SampleLoaderUploaderManager.getInstance().uploadOperationData(operationDataList);
         }
+    }
+
+    public void uploadIPV6(long machineId) {
+        SampleIPV6DataUploader.getInstance().uploadIPV6(machineId);
     }
 }

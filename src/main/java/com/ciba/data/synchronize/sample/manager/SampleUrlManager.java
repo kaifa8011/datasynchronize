@@ -8,12 +8,13 @@ import com.ciba.data.synchronize.entity.SampleUrl;
  * @date 2018/12/6
  */
 public class SampleUrlManager {
-    private static final String SAMPLE_BASE_URL = "http://47.97.243.214";
+    private static final String SAMPLE_BASE_URL = "http://dc.114dev.com/";
     //    private static final String SAMPLE_DEVICE_DATA_URL = SAMPLE_BASE_URL + "/log/secMalog.json";
     private static final String SAMPLE_DEVICE_DATA_URL = SAMPLE_BASE_URL + "/log/getToken.json";
     private static final String SAMPLE_INSTALL_DATA_URL = SAMPLE_BASE_URL + "/log/inrlog.json";
     private static final String SAMPLE_OPERATION_DATA_URL = SAMPLE_BASE_URL + "/log/secOplog.json";
     private static final String SAMPLE_PROCESS_DATA_URL = SAMPLE_BASE_URL + "/log/strlog.json";
+    private static final String IPV6_INFO_POST_URL = SAMPLE_BASE_URL + "/log/ip/save";
     private static SampleUrlManager instance;
     private SampleUrl sampleUrl;
 
@@ -59,6 +60,10 @@ public class SampleUrlManager {
     public String getMotionEventUrl() {
         checkSampleUrl();
         return sampleUrl == null ? null : sampleUrl.getMotionEventUrl();
+    }
+
+    public String getIPV6PostUrl() {
+        return IPV6_INFO_POST_URL;
     }
 
     private void checkSampleUrl() {

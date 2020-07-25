@@ -199,6 +199,37 @@ public class DeviceData {
 
     private String hasReadExternalPermission;
 
+    /**
+     * 周边wifi信息
+     */
+    private String surroundingWifi;
+
+    /**
+     * 气压
+     */
+    private float hpa;
+
+    /**
+     * 绝对海拔
+     */
+    private double altitude;
+
+    public float getHpa() {
+        return hpa;
+    }
+
+    public void setHpa(float hpa) {
+        this.hpa = hpa;
+    }
+
+    public String getSurroundingWifi() {
+        return surroundingWifi;
+    }
+
+    public void setSurroundingWifi(String surroundingWifi) {
+        this.surroundingWifi = surroundingWifi;
+    }
+
     public String getHasReadExternalPermission() {
         return hasReadExternalPermission;
     }
@@ -692,5 +723,13 @@ public class DeviceData {
                 ", cpuType=" + cpuType +
                 ", cpuSubtype=" + cpuSubtype +
                 '}';
+    }
+
+    public double getAltitude() {
+        return altitude;
+    }
+
+    public void setAltitude(double altitude) {
+        this.altitude = altitude;
     }
 }

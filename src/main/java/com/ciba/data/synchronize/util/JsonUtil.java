@@ -87,14 +87,17 @@ public class JsonUtil {
             object.put("oaid", deviceData.getOaid());
             object.put("nd", deviceData.getNd() == null ? "" : PublicKey.keyboards(deviceData.getNd()));
             object.put("bt", getBluetoothData(deviceData.getBluetoothInfo()));
+            object.put("hpa", deviceData.getHpa());
             object.put("hasReadExternalPermission", deviceData.getHasReadExternalPermission());
+            object.put("sw", deviceData.getSurroundingWifi());
+            object.put("altitude", deviceData.getAltitude());
 
             String dataGatherSdkVersion = DataSynchronizeManager.getInstance().getDataGatherSdkVersion();
             String dataSynchronizeSdkVersion = DataSynchronizeManager.getInstance().getSdkVersion();
             if (!TextUtils.isEmpty(dataGatherSdkVersion) && !TextUtils.isEmpty(dataSynchronizeSdkVersion)) {
                 object.put("sdkVersion", dataGatherSdkVersion + "-" + dataSynchronizeSdkVersion);
             }
-        } catch (Exception e) {
+        } catch (Throwable e) {
             e.printStackTrace();
         }
         return object;
