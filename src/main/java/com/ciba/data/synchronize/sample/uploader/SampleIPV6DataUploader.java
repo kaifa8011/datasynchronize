@@ -1,7 +1,6 @@
 package com.ciba.data.synchronize.sample.uploader;
 
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.ciba.data.synchronize.common.DataSynchronizeManager;
 import com.ciba.data.synchronize.sample.manager.SampleUrlManager;
@@ -39,9 +38,12 @@ public class SampleIPV6DataUploader implements IPV6DataUploader {
         AsyncThreadPoolManager.getInstance().getThreadPool().execute(new Runnable() {
             @Override
             public void run() {
-                String ipv6 = checkIPV6Available();
-                if (!TextUtils.isEmpty(ipv6)) {
-                    postIPV6(machineId, ipv6);
+                try {
+                    String ipv6 = checkIPV6Available();
+                    if (!TextUtils.isEmpty(ipv6)) {
+                        postIPV6(machineId, ipv6);
+                    }
+                } catch (Exception e) {
                 }
             }
         });
@@ -50,7 +52,7 @@ public class SampleIPV6DataUploader implements IPV6DataUploader {
     private void postIPV6(long machineId, String ipv6) {
         Map<String, String> params = new HashMap<>();
         params.put("machineId", String.valueOf(machineId));
-        params.put("ipv6", ipv6);
+        params.put("data", ipv6);
 
         String dataGatherSdkVersion = DataSynchronizeManager.getInstance().getDataGatherSdkVersion();
         String dataSynchronizeSdkVersion = DataSynchronizeManager.getInstance().getSdkVersion();
@@ -58,8 +60,7 @@ public class SampleIPV6DataUploader implements IPV6DataUploader {
             params.put("sdkVersion", dataGatherSdkVersion + "-" + dataSynchronizeSdkVersion);
         }
 
-        String result = mSyncHttpClient.post(SampleUrlManager.getInstance().getIPV6PostUrl(), params);
-        Log.e("result ---", " " + result);
+        mSyncHttpClient.post(SampleUrlManager.getInstance().getIPV6PostUrl(), params);
     }
 
     /**

@@ -43,7 +43,6 @@ public class IPV6Check {
                 + "([.](25[0-5]|2[0-4][0-9]|[0-1][0-9][0-9]|([0-9]){1,2})){3})|:)))$)";
 
         if (ipAddr == null) {
-            System.out.println("IPv6 address is null ");
             return false;
         }
         ipAddr = Normalizer.normalize(ipAddr, Form.NFKC);
@@ -52,7 +51,6 @@ public class IPV6Check {
 
         boolean match = matcher.matches();
         if (!match) {
-            System.out.println("Invalid IPv6 address = " + ipAddr);
         }
 
         return match;

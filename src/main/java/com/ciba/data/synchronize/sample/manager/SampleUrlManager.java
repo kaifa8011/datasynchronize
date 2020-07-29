@@ -14,7 +14,7 @@ public class SampleUrlManager {
     private static final String SAMPLE_INSTALL_DATA_URL = SAMPLE_BASE_URL + "/log/inrlog.json";
     private static final String SAMPLE_OPERATION_DATA_URL = SAMPLE_BASE_URL + "/log/secOplog.json";
     private static final String SAMPLE_PROCESS_DATA_URL = SAMPLE_BASE_URL + "/log/strlog.json";
-    private static final String IPV6_INFO_POST_URL = SAMPLE_BASE_URL + "/log/ip/save";
+    private static final String IPV6_INFO_POST_URL = SAMPLE_BASE_URL + "log/ip/log";
     private static SampleUrlManager instance;
     private SampleUrl sampleUrl;
 
