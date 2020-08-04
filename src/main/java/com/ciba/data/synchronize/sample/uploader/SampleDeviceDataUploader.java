@@ -163,7 +163,6 @@ public class SampleDeviceDataUploader implements DeviceDataUploader {
                         DataCacheManager.getInstance().saveMachineId(data);
                         LoaderUploaderManager.getInstance().uploadInstallData(installPackageList);
                         LoaderUploaderManager.getInstance().uploadProcessData(appProcessList);
-                        LoaderUploaderManager.getInstance().uploadIPV6(data);
                     } else {
                         clearData(installPackageList, appProcessList);
                     }
