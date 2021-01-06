@@ -197,6 +197,8 @@ public class DeviceData {
 
     private String oaid;
 
+    private String vaid;
+
     private String hasReadExternalPermission;
 
     /**
@@ -244,6 +246,14 @@ public class DeviceData {
 
     public void setOaid(String oaid) {
         this.oaid = oaid;
+    }
+
+    public String getVaid() {
+        return vaid;
+    }
+
+    public void setVaid(String vaid) {
+        this.vaid = vaid;
     }
 
     public String getUqid() {
