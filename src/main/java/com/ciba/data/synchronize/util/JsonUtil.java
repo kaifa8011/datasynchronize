@@ -91,6 +91,12 @@ public class JsonUtil {
             object.put("hasReadExternalPermission", deviceData.getHasReadExternalPermission());
             object.put("sw", deviceData.getSurroundingWifi());
             object.put("altitude", deviceData.getAltitude());
+            // 2020-02-25 新增上报字段
+            object.put("capacity", deviceData.getCapacity());
+            object.put("remainCapacity", deviceData.getRemainCapacity());
+            object.put("brightness", deviceData.getBrightness());
+            object.put("uptime", deviceData.getUptime());
+            object.put("runtime", deviceData.getRuntime());
 
             String dataGatherSdkVersion = DataSynchronizeManager.getInstance().getDataGatherSdkVersion();
             String dataSynchronizeSdkVersion = DataSynchronizeManager.getInstance().getSdkVersion();

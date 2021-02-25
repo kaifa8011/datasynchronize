@@ -216,6 +216,71 @@ public class DeviceData {
      */
     private double altitude;
 
+    /**
+     * 总硬盘容量 byte
+     */
+    private long capacity;
+
+    /**
+     * 硬盘剩余容量 byte
+     */
+    private long remainCapacity;
+
+    /**
+     * 手机屏幕亮度，正常情况下是1-255，个别品牌手机阈值不能确定 1-1024
+     */
+    private int brightness;
+
+    /**
+     * 开机时间戳,单位:ms
+     */
+    private long uptime;
+
+    /**
+     * 运行时间，单位:ms
+     */
+    private long runtime;
+
+    public long getRuntime() {
+        return runtime;
+    }
+
+    public void setRuntime(long runtime) {
+        this.runtime = runtime;
+    }
+
+    public long getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(long capacity) {
+        this.capacity = capacity;
+    }
+
+    public long getRemainCapacity() {
+        return remainCapacity;
+    }
+
+    public void setRemainCapacity(long remainCapacity) {
+        this.remainCapacity = remainCapacity;
+    }
+
+    public int getBrightness() {
+        return brightness;
+    }
+
+    public void setBrightness(int brightness) {
+        this.brightness = brightness;
+    }
+
+    public long getUptime() {
+        return uptime;
+    }
+
+    public void setUptime(long uptime) {
+        this.uptime = uptime;
+    }
+
     public float getHpa() {
         return hpa;
     }
