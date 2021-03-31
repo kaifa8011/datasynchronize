@@ -1,7 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.novoda.bintray-release'
 
-def VERSION = '0.5.0'
+def VERSION = '0.5.1'
 
 android {
     compileSdkVersion 28
@@ -10,7 +10,7 @@ android {
     defaultConfig {
         minSdkVersion 11
         targetSdkVersion 28
-        versionCode 202101060
+        versionCode 202102250
         versionName VERSION
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
