@@ -60,7 +60,7 @@ public class SampleIPV6DataUploader implements IPV6DataUploader {
             params.put("sdkVersion", dataGatherSdkVersion + "-" + dataSynchronizeSdkVersion);
         }
 
-        mSyncHttpClient.post(SampleUrlManager.getInstance().getIPV6PostUrl(), params);
+        mSyncHttpClient.post(SampleUrlManager.getIPV6PostUrl(), params);
     }
 
     /**

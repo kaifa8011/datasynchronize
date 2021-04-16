@@ -55,7 +55,7 @@ public class LoaderUploaderManager {
             , List<ProcessData> appProcessList) {
 
         // 上传Crash信息
-        uploadCrashData(crashData);
+//        uploadCrashData(crashData);
 
         // 获取设备唯一标识
         long machineId = DataCacheManager.getInstance().getMachineId();

@@ -27,27 +27,28 @@ public class SampleCrashDataUploader implements CrashDataUploader {
 
     @Override
     public void uploadCrashData(String crashData) {
-        if (TextUtils.isEmpty(crashData)) {
-            return;
-        }
-        AsyncHttpClient httpClient = SampleLoaderUploaderManager.getInstance().getHttpClient();
-        String crashDataUrl = SampleUrlManager.getInstance().getCrashUrl();
-        if (httpClient == null || TextUtils.isEmpty(crashDataUrl)) {
-            return;
-        }
-        Map<String, String> params = JsonUtil.operationData2Json(createOperationData(OperationData.TYPE_CRASH, crashData));
-        crashData = null;
-        if (params == null || params.size() <= 0) {
-            return;
-        }
-
-        httpClient.post(crashDataUrl, params, new SimpleHttpListener() {
-            @Override
-            public void onRequestSuccess(String result) {
-                DataSynchronizeLog.innerI("0x00000002");
-                DataCacheManager.getInstance().saveCrashData("");
-            }
-        });
+        //崩溃记录上报逻辑移除 2021.04.16 by松子
+//        if (TextUtils.isEmpty(crashData)) {
+//            return;
+//        }
+//        AsyncHttpClient httpClient = SampleLoaderUploaderManager.getInstance().getHttpClient();
+//        String crashDataUrl = SampleUrlManager.getCrashUrl();
+//        if (httpClient == null || TextUtils.isEmpty(crashDataUrl)) {
+//            return;
+//        }
+//        Map<String, String> params = JsonUtil.operationData2Json(createOperationData(OperationData.TYPE_CRASH, crashData));
+//        crashData = null;
+//        if (params == null || params.size() <= 0) {
+//            return;
+//        }
+//
+//        httpClient.post(crashDataUrl, params, new SimpleHttpListener() {
+//            @Override
+//            public void onRequestSuccess(String result) {
+//                DataSynchronizeLog.innerI("0x00000002");
+//                DataCacheManager.getInstance().saveCrashData("");
+//            }
+//        });
     }
 
     /**

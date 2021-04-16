@@ -33,43 +33,46 @@ public class SampleActivityLifecycleUploader implements ActivityLifecycleUploade
 
     @Override
     public void uploadActivityLifecycle(int lifecycle, Activity activity) {
-        if (activity == null) {
-            return;
-        }
-        if (ACTIVITY_CREATED != lifecycle) {
-            return;
-        }
-        if (!StateUtil.checkFlag()) {
-            return;
-        }
-        long machineId = DataCacheManager.getInstance().getMachineId();
-        if (machineId <= 0) {
-            return;
-        }
-        AsyncHttpClient httpClient = SampleLoaderUploaderManager.getInstance().getHttpClient();
-        String activityLifeUrl = SampleUrlManager.getInstance().getActivityLifeUrl();
-        if (httpClient == null || TextUtils.isEmpty(activityLifeUrl)) {
-            return;
-        }
 
-        String packageName = DataSynchronizeManager.getInstance().getContext().getPackageName();
-        OperationData operationData = new OperationData();
-        operationData.setMachineId(machineId);
-        operationData.setPackageName(packageName);
-        operationData.setVersionNo(getVersionName(packageName));
-        operationData.setScheme(activity.getLocalClassName());
+        //生命周期记录上报逻辑删除  2021.04.16 by松子
 
-        String currentTime = TimeUtil.getCurrentTime();
-        operationData.setStartTime(currentTime);
-        operationData.setOperationType(OperationData.TYPE_OPEN);
+//        if (activity == null) {
+//            return;
+//        }
+//        if (ACTIVITY_CREATED != lifecycle) {
+//            return;
+//        }
+//        if (!StateUtil.checkFlag()) {
+//            return;
+//        }
+//        long machineId = DataCacheManager.getInstance().getMachineId();
+//        if (machineId <= 0) {
+//            return;
+//        }
+//        AsyncHttpClient httpClient = SampleLoaderUploaderManager.getInstance().getHttpClient();
+//        String activityLifeUrl = SampleUrlManager.getInstance().getActivityLifeUrl();
+//        if (httpClient == null || TextUtils.isEmpty(activityLifeUrl)) {
+//            return;
+//        }
 
-        Map<String, String> params = JsonUtil.operationData2Json(operationData);
-        operationData = null;
-        if (params == null || params.size() <= 0) {
-            return;
-        }
+//        String packageName = DataSynchronizeManager.getInstance().getContext().getPackageName();
+//        OperationData operationData = new OperationData();
+//        operationData.setMachineId(machineId);
+//        operationData.setPackageName(packageName);
+//        operationData.setVersionNo(getVersionName(packageName));
+//        operationData.setScheme(activity.getLocalClassName());
+//
+//        String currentTime = TimeUtil.getCurrentTime();
+//        operationData.setStartTime(currentTime);
+//        operationData.setOperationType(OperationData.TYPE_OPEN);
 
-        httpClient.post(activityLifeUrl, params, listener);
+//        Map<String, String> params = JsonUtil.operationData2Json(operationData);
+//        operationData = null;
+//        if (params == null || params.size() <= 0) {
+//            return;
+//        }
+
+//        httpClient.post(activityLifeUrl, params, listener);
     }
 
     /**

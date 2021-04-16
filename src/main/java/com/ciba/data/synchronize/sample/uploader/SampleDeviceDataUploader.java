@@ -72,7 +72,7 @@ public class SampleDeviceDataUploader implements DeviceDataUploader {
                 throw new Exception(Constant.UPLOAD_DATA_FAILED);
             }
             AsyncHttpClient httpClient = SampleLoaderUploaderManager.getInstance().getHttpClient();
-            String deviceDataUrl = SampleUrlManager.getInstance().getDeviceDataUrl();
+            String deviceDataUrl = SampleUrlManager.getDeviceDataUrl();
 
             if (httpClient != null && !TextUtils.isEmpty(deviceDataUrl)) {
                 JSONObject jsonObject = JsonUtil.deviceData2Json(deviceData);
@@ -146,7 +146,7 @@ public class SampleDeviceDataUploader implements DeviceDataUploader {
                     String message = jsonObject.optString("message");
                     String code = jsonObject.getString("code");
 
-                    //是否需要轮询获取machineId(第一次拿到的是token或者machineId获取失败)
+                    //是否需要轮询获取machineId(第一次拿到的是token或者machineId获取失败都需要重新根据token去获取machineId)
                     boolean shouldLoopGetMachineId = TextUtils.equals(message, "token")
                             || TextUtils.equals(code, "1003");
                     if (shouldLoopGetMachineId) {
@@ -207,7 +207,7 @@ public class SampleDeviceDataUploader implements DeviceDataUploader {
         }
         final long machineId = DataCacheManager.getInstance().getMachineId();
         final AsyncHttpClient httpClient = SampleLoaderUploaderManager.getInstance().getHttpClient();
-        final String deviceDataUrl = SampleUrlManager.getInstance().getDeviceDataUrl();
+        final String deviceDataUrl = SampleUrlManager.getDeviceDataUrl();
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {

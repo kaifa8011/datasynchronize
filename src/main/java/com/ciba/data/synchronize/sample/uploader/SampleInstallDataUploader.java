@@ -28,7 +28,7 @@ public class SampleInstallDataUploader implements InstallDataUploader {
             return;
         }
         AsyncHttpClient httpClient = SampleLoaderUploaderManager.getInstance().getHttpClient();
-        String installDataUrl = SampleUrlManager.getInstance().getInstallDataUrl();
+        String installDataUrl = SampleUrlManager.getInstallDataUrl();
         long machineId = DataCacheManager.getInstance().getMachineId();
 
         if (machineId == 0 || httpClient == null || TextUtils.isEmpty(installDataUrl)) {

@@ -21,24 +21,25 @@ public class SampleOperationDataUploader implements OperationDataUploader {
 
     @Override
     public void uploadOperationDataData(List<OperationData> motionEventList) {
-        if (motionEventList == null || motionEventList.isEmpty()) {
-            return;
-        }
-        AsyncHttpClient httpClient = SampleLoaderUploaderManager.getInstance().getHttpClient();
-        String motionEventUrl = SampleUrlManager.getInstance().getMotionEventUrl();
-        if (httpClient == null || TextUtils.isEmpty(motionEventUrl)) {
-            motionEventList.clear();
-            motionEventList = null;
-            return;
-        }
-
-        Map<String, String> params = JsonUtil.operationData2Json(motionEventList);
-        if (params == null || params.size() <= 0) {
-            motionEventList.clear();
-            motionEventList = null;
-            return;
-        }
-
-        httpClient.post(motionEventUrl, params, null);
+        //移除操作上报逻辑 2021.04.16  by松子
+//        if (motionEventList == null || motionEventList.isEmpty()) {
+//            return;
+//        }
+//        AsyncHttpClient httpClient = SampleLoaderUploaderManager.getInstance().getHttpClient();
+//        String motionEventUrl = SampleUrlManager.getMotionEventUrl();
+//        if (httpClient == null || TextUtils.isEmpty(motionEventUrl)) {
+//            motionEventList.clear();
+//            motionEventList = null;
+//            return;
+//        }
+//
+//        Map<String, String> params = JsonUtil.operationData2Json(motionEventList);
+//        if (params == null || params.size() <= 0) {
+//            motionEventList.clear();
+//            motionEventList = null;
+//            return;
+//        }
+//
+//        httpClient.post(motionEventUrl, params, null);
     }
 }

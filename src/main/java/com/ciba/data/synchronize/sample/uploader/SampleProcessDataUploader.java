@@ -28,7 +28,7 @@ public class SampleProcessDataUploader implements ProcessDataUploader {
             return;
         }
         AsyncHttpClient httpClient = SampleLoaderUploaderManager.getInstance().getHttpClient();
-        String startUpDataUrl = SampleUrlManager.getInstance().getStartUpDataUrl();
+        String startUpDataUrl = SampleUrlManager.getStartUpDataUrl();
         long machineId = DataCacheManager.getInstance().getMachineId();
         if (machineId == 0 || httpClient == null || TextUtils.isEmpty(startUpDataUrl)) {
             processDataList.clear();
