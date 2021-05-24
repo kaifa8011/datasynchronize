@@ -1,9 +1,5 @@
 package com.ciba.data.synchronize.util;
 
-import android.util.Log;
-
-import com.ciba.data.synchronize.util.SPUtil;
-
 /**
  * @author songzi
  * @date 2021/5/20
@@ -11,9 +7,9 @@ import com.ciba.data.synchronize.util.SPUtil;
 public class InstallListReadTimeController {
 
     /**
-     * 安装列表读取间隔
+     * 安装列表读取间隔 3天
      */
-    private static final long INSTALL_LIST_READ_TIME_INTERVAL_TIME = 60 * 1000 * 24 * 3;
+    private static final long INSTALL_LIST_READ_TIME_INTERVAL_TIME = 1000 * 60 * 60 * 24 * 3;
     /**
      * 安装列表KEY
      */

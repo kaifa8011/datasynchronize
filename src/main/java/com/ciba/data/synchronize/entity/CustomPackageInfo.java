@@ -52,4 +52,23 @@ public class CustomPackageInfo {
     public void setMachineId(long machineId) {
         this.machineId = machineId;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+
+        if (obj == null) {
+            return false;
+        }
+        if (this == obj) {
+            return true;
+        }
+        CustomPackageInfo customPackageInfo = null;
+        if (obj instanceof CustomPackageInfo) {
+            customPackageInfo = (CustomPackageInfo) obj;
+            return this.packageName.equals(customPackageInfo.getPackageName());
+        } else {
+            return false;
+        }
+
+    }
 }

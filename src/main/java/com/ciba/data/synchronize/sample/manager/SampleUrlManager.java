@@ -69,6 +69,14 @@ public class SampleUrlManager {
         return url;
     }
 
+
+    public static String getInstallPackageUrl() {
+//        getInstallDataUrl();
+        String host = getRequestHost();
+        String url = host + "/log/config/ppl";
+        return url;
+    }
+
     public static String getCrashUrl() {
 //      getCrashDataUrl();
         String host = getRequestHost();
