@@ -15,6 +15,16 @@ import java.util.Set;
 public class SPUtil {
     private static final String PREFS_NAME = "com.ciba.data";
 
+    /**
+     * 动态域名初始化成功标记
+     */
+    public static final String DYNAMIC_DOMAIN_INIT_SUCCESS_FLAG_KEY = "dynamic_domain_init_success_flag";
+    /**
+     * 动态域名key
+     */
+    public static final String DYNAMIC_DOMAIN_KEY = "dynamic_domain";
+
+
     public static SharedPreferences getSP() {
         return DataSynchronizeManager.getInstance().getContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
     }
@@ -82,6 +92,23 @@ public class SPUtil {
 
     public static Set<String> getStringSet(String key) {
         return getSP().getStringSet(key, null);
+    }
+
+
+    public static boolean getHostInitSuccessFlag() {
+        return getBoolean(DYNAMIC_DOMAIN_INIT_SUCCESS_FLAG_KEY);
+    }
+
+    public static void putHostInitSuccessFlag(boolean flag) {
+         putBoolean(DYNAMIC_DOMAIN_INIT_SUCCESS_FLAG_KEY, flag);
+    }
+
+    public static String getDynamicDomain() {
+        return getString(DYNAMIC_DOMAIN_KEY);
+    }
+
+    public static void putDynamicDomain(String domain) {
+        putString(DYNAMIC_DOMAIN_KEY, domain);
     }
 
 }

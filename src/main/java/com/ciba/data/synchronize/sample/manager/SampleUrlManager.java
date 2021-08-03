@@ -11,16 +11,7 @@ import com.ciba.data.synchronize.util.SPUtil;
  */
 public class SampleUrlManager {
 
-    /**
-     * 动态域名初始化成功标记
-     */
-    public static final String DYNAMIC_DOMAIN_INIT_SUCCESS_FLAG_KEY = "dynamic_domain_init_success_flag";
-    /**
-     * 动态域名key
-     */
-    public static final String DYNAMIC_DOMAIN_KEY = "dynamic_domain";
-
-    private static final String DEFAULT_BASE_URL = "http://dc.114dev.com";
+    private static final String DEFAULT_BASE_URL = "http://dc.admobile.top";
 
     public static String getDeviceDataUrl() {
         String host = getRequestHost();
@@ -74,12 +65,12 @@ public class SampleUrlManager {
 
     private static String getRequestHost() {
         try {
-            boolean initSuccessFlag = SPUtil.getBoolean(DYNAMIC_DOMAIN_INIT_SUCCESS_FLAG_KEY);
+            boolean initSuccessFlag = SPUtil.getHostInitSuccessFlag();
             if (!initSuccessFlag) {
                 return DEFAULT_BASE_URL;
             }
 
-            String dynamicDomain = SPUtil.getString(DYNAMIC_DOMAIN_KEY);
+            String dynamicDomain = SPUtil.getDynamicDomain();
             if (TextUtils.isEmpty(dynamicDomain)) {
                 return DEFAULT_BASE_URL;
             }
