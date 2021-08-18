@@ -10,6 +10,7 @@ import com.ciba.data.synchronize.util.SPUtil;
  * @date 2018/12/6
  */
 public class SampleUrlManager {
+    //TODO 正式上线检查域名
     /**
      * 正式域名
      */

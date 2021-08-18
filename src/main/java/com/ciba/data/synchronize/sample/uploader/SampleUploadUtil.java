@@ -21,7 +21,6 @@ public class SampleUploadUtil {
             // 添加machineId
             if (machineId != 0) {
                 //用dcid 替换 machineId
-                //requestParams.put("machineId", machineId + "");
                 requestParams.put("dcid", machineId + "");
             }
 
