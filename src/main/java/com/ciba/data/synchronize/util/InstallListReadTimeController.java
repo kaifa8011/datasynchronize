@@ -23,7 +23,6 @@ public class InstallListReadTimeController {
      */
     public static boolean isLocalInstallListRead() {
         // 获取最后一次安装列表读取时间
-
         Long lastInstallListReadTime = SPUtil.getLong(KEY_INSTALL_LIST_READ_TIME);
         // 当前时间
         Long timeMillis = System.currentTimeMillis();

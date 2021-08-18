@@ -17,43 +17,44 @@ public class DeviceData {
     /**
      * 运营商识别码
      */
-    private String imsi;
+    private String imsi = "";
+
     private int machineType;
     /**
      * 浏览器的user-agent
      */
-    private String ua;
+    private String ua = "";
     /**
      * 网卡地址
      */
-    private String networkAddress;
+    private String networkAddress = "";
     /**
      * 网络类型
      */
-    private String networkType;
+    private String networkType = "";
     /**
      * densityDpi
      */
-    private String sdScreendpi;
+    private String sdScreendpi = "";
     /**
      * IMEI号
      */
-    private String imei;
+    private String imei = "";
     /**
      * 手机操作系统版本号
      */
-    private String osVersion;
+    private String osVersion = "";
     /**
      * 手机生产厂商
      */
-    private String vendor;
+    private String vendor = "";
     /**
      * 手机型号
      */
-    private String modelNo;
-    private String androidId;
-    private String idfa;
-    private String openUdid;
+    private String modelNo = "";
+    private String androidId = "";
+    private String idfa = "";
+    private String openUdid = "";
     /**
      * 纬度
      */
@@ -65,23 +66,8 @@ public class DeviceData {
     /**
      * ip地址
      */
-    private String ip;
-    /**
-     * 国际移动设备识别码CDMA制式
-     */
-    private String meid;
-    /**
-     * 存储卡片的唯一识别信息
-     */
-    private String cid;
-    /**
-     * 基站编号 小区识别，为了唯一地表示 GSMPLMN 中的每个小区，网络运营者需分配给网络中所有的小区一个代码
-     */
-    private String bscid;
-    /**
-     * 基站信号强度
-     */
-    private String bsss;
+    private String ip = "";
+
     /**
      * 设备类型 5 - pad ， 4 - 手机
      */
@@ -89,12 +75,12 @@ public class DeviceData {
     /**
      * android 设备的 Android Advertising ID，在保证取值正确有效的前提下填写，用于定向优化
      */
-    private String advertisingId;
-    private String idfv;
+    private String advertisingId = "";
+    private String idfv = "";
     /**
      * 设备的语言设置
      */
-    private String language;
+    private String language = "";
     /**
      * 设备电量百分比，取整数，数值区间0~100。
      */
@@ -106,23 +92,20 @@ public class DeviceData {
     /**
      * 蓝牙mac号。有蓝牙功能的设备存在该参数
      */
-    private String btmac;
+    private String btmac = "";
     /**
      * 安卓设备pseudo-unique id
      */
-    private String pdunid;
+    private String pdunid = "";
     /**
      * cpu类型
      */
-    private String cputy;
-    /**
-     * android 设备的 iccid 值
-     */
-    private String iccid;
+    private String cputy = "";
+
     /**
      * 国家
      */
-    private String country;
+    private String country = "";
     /**
      * 坐标类型 1：全球卫星定位系统坐标系，2：国家测绘局坐标系，3：百度坐标系，4：其他坐标系
      */
@@ -135,30 +118,24 @@ public class DeviceData {
      * 获取经纬度(lat/lng)的时间。
      */
     private long coordTime;
-    /**
-     * 当前连接的运营商基站id，用于辅助用户定位
-     */
-    private String cellularId;
+
     /**
      * wifi地址
      */
-    private String bssId;
-    /**
-     * 基站位置区域码
-     */
-    private String lac;
+    private String bssId = "";
+
     /**
      * 移动国家代码
      */
-    private String mcc;
+    private String mcc = "";
     /**
      * wifi网络id
      */
-    private String netwkId;
+    private String netwkId = "";
     /**
      * 局域网名称
      */
-    private String ssid;
+    private String ssid = "";
     /**
      * wifi连接速度
      */
@@ -171,10 +148,7 @@ public class DeviceData {
      * 是否漫游。
      */
     private int roaming;
-    /**
-     * 基站信息
-     */
-    private String stbif;
+
     /**
      * cpu型号
      */
@@ -187,34 +161,24 @@ public class DeviceData {
     /**
      * 同一WIFI下其他设备信息（mac、ip）
      */
-    private String nd;
+    private String nd = "";
 
     private CustomBluetoothInfo bluetoothInfo;
 
-    private String wordSize;
+    private String wordSize = "";
 
-    private String uqid;
+    private String uqid = "";
 
-    private String oaid;
+    private String oaid = "";
 
-    private String vaid;
+    private String vaid = "";
 
-    private String hasReadExternalPermission;
+    private String hasReadExternalPermission = "";
 
     /**
      * 周边wifi信息
      */
-    private String surroundingWifi;
-
-    /**
-     * 气压
-     */
-    private float hpa;
-
-    /**
-     * 绝对海拔
-     */
-    private double altitude;
+    private String surroundingWifi = "";
 
     /**
      * 总硬盘容量 byte
@@ -240,6 +204,110 @@ public class DeviceData {
      * 运行时间，单位:ms
      */
     private long runtime;
+
+    /**
+     * 时区
+     */
+    private String timezone = "";
+
+    /**
+     * 是否开网络代理，1 是，0 否
+     */
+    private int isagent;
+
+    /**
+     * 是否开VPN，1 是，0 否
+     */
+    private int isvpn;
+
+    /**
+     * 是否release包，1 是，0 否
+     */
+    private int isrelease;
+
+    /**
+     * 安卓签名指纹
+     */
+    private String sign = "";
+
+    /**
+     * 是否充电中，1 是，0 否
+     */
+    private int ischarging;
+
+    /**
+     * 是否debug模式，1 是，0 否
+     */
+    private int isdebug;
+
+    /**
+     * rom软件版本号
+     */
+    private String romversion = "";
+
+    public String getTimezone() {
+        return timezone;
+    }
+
+    public void setTimezone(String timezone) {
+        this.timezone = timezone;
+    }
+
+    public int getIsagent() {
+        return isagent;
+    }
+
+    public void setIsagent(int isagent) {
+        this.isagent = isagent;
+    }
+
+    public int getIsrelease() {
+        return isrelease;
+    }
+
+    public void setIsrelease(int isrelease) {
+        this.isrelease = isrelease;
+    }
+
+    public String getSign() {
+        return sign;
+    }
+
+    public void setSign(String sign) {
+        this.sign = sign;
+    }
+
+    public int getIscharging() {
+        return ischarging;
+    }
+
+    public void setIscharging(int ischarging) {
+        this.ischarging = ischarging;
+    }
+
+    public int getIsdebug() {
+        return isdebug;
+    }
+
+    public void setIsdebug(int isdebug) {
+        this.isdebug = isdebug;
+    }
+
+    public String getRomversion() {
+        return romversion;
+    }
+
+    public void setRomversion(String romversion) {
+        this.romversion = romversion;
+    }
+
+    public int getIsvpn() {
+        return isvpn;
+    }
+
+    public void setIsvpn(int isvpn) {
+        this.isvpn = isvpn;
+    }
 
     public long getRuntime() {
         return runtime;
@@ -279,14 +347,6 @@ public class DeviceData {
 
     public void setUptime(long uptime) {
         this.uptime = uptime;
-    }
-
-    public float getHpa() {
-        return hpa;
-    }
-
-    public void setHpa(float hpa) {
-        this.hpa = hpa;
     }
 
     public String getSurroundingWifi() {
@@ -361,21 +421,21 @@ public class DeviceData {
         this.machineId = machineId;
     }
 
-    public String getBscid() {
-        return bscid;
-    }
-
-    public void setBscid(String bscid) {
-        this.bscid = bscid;
-    }
-
-    public String getBsss() {
-        return bsss;
-    }
-
-    public void setBsss(String bsss) {
-        this.bsss = bsss;
-    }
+//    public String getBscid() {
+//        return bscid;
+//    }
+//
+//    public void setBscid(String bscid) {
+//        this.bscid = bscid;
+//    }
+//
+//    public String getBsss() {
+//        return bsss;
+//    }
+//
+//    public void setBsss(String bsss) {
+//        this.bsss = bsss;
+//    }
 
     public int getDeviceType() {
         return deviceType;
@@ -449,13 +509,13 @@ public class DeviceData {
         this.cputy = cputy;
     }
 
-    public String getIccid() {
-        return iccid;
-    }
-
-    public void setIccid(String iccid) {
-        this.iccid = iccid;
-    }
+//    public String getIccid() {
+//        return iccid;
+//    }
+//
+//    public void setIccid(String iccid) {
+//        this.iccid = iccid;
+//    }
 
     public String getCountry() {
         return country;
@@ -489,13 +549,13 @@ public class DeviceData {
         this.coordTime = coordTime;
     }
 
-    public String getCellularId() {
-        return cellularId;
-    }
-
-    public void setCellularId(String cellularId) {
-        this.cellularId = cellularId;
-    }
+//    public String getCellularId() {
+//        return cellularId;
+//    }
+//
+//    public void setCellularId(String cellularId) {
+//        this.cellularId = cellularId;
+//    }
 
     public String getBssId() {
         return bssId;
@@ -505,13 +565,13 @@ public class DeviceData {
         this.bssId = bssId;
     }
 
-    public String getLac() {
-        return lac;
-    }
-
-    public void setLac(String lac) {
-        this.lac = lac;
-    }
+//    public String getLac() {
+//        return lac;
+//    }
+//
+//    public void setLac(String lac) {
+//        this.lac = lac;
+//    }
 
     public String getMcc() {
         return mcc;
@@ -561,13 +621,13 @@ public class DeviceData {
         this.roaming = roaming;
     }
 
-    public String getStbif() {
-        return stbif;
-    }
-
-    public void setStbif(String stbif) {
-        this.stbif = stbif;
-    }
+//    public String getStbif() {
+//        return stbif;
+//    }
+//
+//    public void setStbif(String stbif) {
+//        this.stbif = stbif;
+//    }
 
     public int getCpuType() {
         return cpuType;
@@ -585,21 +645,21 @@ public class DeviceData {
         this.cpuSubtype = cpuSubtype;
     }
 
-    public String getMeid() {
-        return meid;
-    }
-
-    public void setMeid(String meid) {
-        this.meid = meid;
-    }
-
-    public String getCid() {
-        return cid;
-    }
-
-    public void setCid(String cid) {
-        this.cid = cid;
-    }
+//    public String getMeid() {
+//        return meid;
+//    }
+//
+//    public void setMeid(String meid) {
+//        this.meid = meid;
+//    }
+//
+//    public String getCid() {
+//        return cid;
+//    }
+//
+//    public void setCid(String cid) {
+//        this.cid = cid;
+//    }
 
     public int getScreenWidth() {
         return screenWidth;
@@ -745,9 +805,10 @@ public class DeviceData {
         this.ip = ip;
     }
 
+
     @Override
     public String toString() {
-        return "MachinesBean{" +
+        return "DeviceData{" +
                 "machineId=" + machineId +
                 ", screenWidth=" + screenWidth +
                 ", screenHeight=" + screenHeight +
@@ -764,13 +825,9 @@ public class DeviceData {
                 ", androidId='" + androidId + '\'' +
                 ", idfa='" + idfa + '\'' +
                 ", openUdid='" + openUdid + '\'' +
-                ", lat='" + lat + '\'' +
-                ", lng='" + lng + '\'' +
+                ", lat=" + lat +
+                ", lng=" + lng +
                 ", ip='" + ip + '\'' +
-                ", meid='" + meid + '\'' +
-                ", cid='" + cid + '\'' +
-                ", bscid='" + bscid + '\'' +
-                ", bsss='" + bsss + '\'' +
                 ", deviceType=" + deviceType +
                 ", advertisingId='" + advertisingId + '\'' +
                 ", idfv='" + idfv + '\'' +
@@ -780,31 +837,40 @@ public class DeviceData {
                 ", btmac='" + btmac + '\'' +
                 ", pdunid='" + pdunid + '\'' +
                 ", cputy='" + cputy + '\'' +
-                ", iccid='" + iccid + '\'' +
                 ", country='" + country + '\'' +
                 ", coordinateType=" + coordinateType +
                 ", locaAccuracy=" + locaAccuracy +
                 ", coordTime=" + coordTime +
-                ", cellularId='" + cellularId + '\'' +
                 ", bssId='" + bssId + '\'' +
-                ", lac='" + lac + '\'' +
                 ", mcc='" + mcc + '\'' +
                 ", netwkId='" + netwkId + '\'' +
                 ", ssid='" + ssid + '\'' +
                 ", lksd=" + lksd +
                 ", rssi=" + rssi +
                 ", roaming=" + roaming +
-                ", stbif='" + stbif + '\'' +
                 ", cpuType=" + cpuType +
                 ", cpuSubtype=" + cpuSubtype +
+                ", nd='" + nd + '\'' +
+                ", bluetoothInfo=" + bluetoothInfo +
+                ", wordSize='" + wordSize + '\'' +
+                ", uqid='" + uqid + '\'' +
+                ", oaid='" + oaid + '\'' +
+                ", vaid='" + vaid + '\'' +
+                ", hasReadExternalPermission='" + hasReadExternalPermission + '\'' +
+                ", surroundingWifi='" + surroundingWifi + '\'' +
+                ", capacity=" + capacity +
+                ", remainCapacity=" + remainCapacity +
+                ", brightness=" + brightness +
+                ", uptime=" + uptime +
+                ", runtime=" + runtime +
+                ", timezone='" + timezone + '\'' +
+                ", isagent=" + isagent +
+                ", isvpn=" + isvpn +
+                ", isrelease=" + isrelease +
+                ", sign='" + sign + '\'' +
+                ", ischarging=" + ischarging +
+                ", isdebug=" + isdebug +
+                ", romversion='" + romversion + '\'' +
                 '}';
-    }
-
-    public double getAltitude() {
-        return altitude;
-    }
-
-    public void setAltitude(double altitude) {
-        this.altitude = altitude;
     }
 }

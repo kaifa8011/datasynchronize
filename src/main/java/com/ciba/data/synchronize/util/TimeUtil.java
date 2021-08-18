@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 
 public class TimeUtil {
     private static final String DEFAULT_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
@@ -18,5 +19,10 @@ public class TimeUtil {
         Date date = new Date(time);
         SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.CHINESE);
         return sdf.format(date);
+    }
+
+    public static String getTimeZone() {
+        TimeZone tz = TimeZone.getDefault();
+        return tz.getDisplayName(false, TimeZone.SHORT);
     }
 }

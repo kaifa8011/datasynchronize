@@ -35,18 +35,18 @@ public class SampleIPV6DataUploader implements IPV6DataUploader {
 
     @Override
     public void uploadIPV6(final long machineId) {
-        AsyncThreadPoolManager.getInstance().getThreadPool().execute(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    String ipv6 = checkIPV6Available();
-                    if (!TextUtils.isEmpty(ipv6)) {
-                        postIPV6(machineId, ipv6);
-                    }
-                } catch (Exception e) {
-                }
-            }
-        });
+//        AsyncThreadPoolManager.getInstance().getThreadPool().execute(new Runnable() {
+//            @Override
+//            public void run() {
+//                try {
+//                    String ipv6 = checkIPV6Available();
+//                    if (!TextUtils.isEmpty(ipv6)) {
+//                        postIPV6(machineId, ipv6);
+//                    }
+//                } catch (Exception e) {
+//                }
+//            }
+//        });
     }
 
     private void postIPV6(long machineId, String ipv6) {

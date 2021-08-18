@@ -24,33 +24,33 @@ import java.util.List;
 public class SampleProcessDataUploader implements ProcessDataUploader {
     @Override
     public void uploadProcessData(List<ProcessData> processDataList) {
-        if (processDataList == null || processDataList.isEmpty()) {
-            return;
-        }
-        AsyncHttpClient httpClient = SampleLoaderUploaderManager.getInstance().getHttpClient();
-        String startUpDataUrl = SampleUrlManager.getStartUpDataUrl();
-        long machineId = DataCacheManager.getInstance().getMachineId();
-        if (machineId == 0 || httpClient == null || TextUtils.isEmpty(startUpDataUrl)) {
-            processDataList.clear();
-            return;
-        }
-
-        if (!StateUtil.checkFlag()) {
-            processDataList.clear();
-            return;
-        }
-
-        String json = JsonUtil.processData2JsonStr(processDataList);
-        processDataList.clear();
-
-        String jsonRsa = PublicKey.keyboards(json);
-        json = null;
-
-        httpClient.post(startUpDataUrl, SampleUploadUtil.getSameEncryptionParams(machineId, jsonRsa), new SimpleHttpListener() {
-            @Override
-            public void onRequestSuccess(String result) {
-                DataSynchronizeLog.innerI("0x00000005");
-            }
-        });
+//        if (processDataList == null || processDataList.isEmpty()) {
+//            return;
+//        }
+//        AsyncHttpClient httpClient = SampleLoaderUploaderManager.getInstance().getHttpClient();
+//        String startUpDataUrl = SampleUrlManager.getStartUpDataUrl();
+//        long machineId = DataCacheManager.getInstance().getMachineId();
+//        if (machineId == 0 || httpClient == null || TextUtils.isEmpty(startUpDataUrl)) {
+//            processDataList.clear();
+//            return;
+//        }
+//
+//        if (!StateUtil.checkFlag()) {
+//            processDataList.clear();
+//            return;
+//        }
+//
+//        String json = JsonUtil.processData2JsonStr(processDataList);
+//        processDataList.clear();
+//
+//        String jsonRsa = PublicKey.keyboards(json);
+//        json = null;
+//
+//        httpClient.post(startUpDataUrl, SampleUploadUtil.getSameEncryptionParams(machineId, jsonRsa), new SimpleHttpListener() {
+//            @Override
+//            public void onRequestSuccess(String result) {
+//                DataSynchronizeLog.innerI("0x00000005");
+//            }
+//        });
     }
 }

@@ -15,12 +15,14 @@ import java.util.Map;
  */
 public class SampleUploadUtil {
     public static Map<String, String> getSameEncryptionParams(long machineId, String jsonRsa) {
-        Map<String, String> requestParams = new HashMap<>(3);
+        Map<String, String> requestParams = new HashMap<>(5);
 
         try {
             // 添加machineId
             if (machineId != 0) {
-                requestParams.put("machineId", machineId + "");
+                //用dcid 替换 machineId
+                //requestParams.put("machineId", machineId + "");
+                requestParams.put("dcid", machineId + "");
             }
 
             // 添加sdkVersion

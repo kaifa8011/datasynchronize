@@ -52,10 +52,6 @@ public class JsonUtil {
             object.put("lat", deviceData.getLat() + "");
             object.put("lng", deviceData.getLng() + "");
             object.put("ip", deviceData.getIp());
-            object.put("meid", deviceData.getMeid());
-            object.put("cid", deviceData.getCid());
-            object.put("bscid", deviceData.getBscid());
-            object.put("bsss", deviceData.getBsss());
             object.put("deviceType", deviceData.getDeviceType());
             object.put("advertisingId", deviceData.getAdvertisingId());
             object.put("idfv", deviceData.getIdfv());
@@ -65,21 +61,20 @@ public class JsonUtil {
             object.put("btmac", deviceData.getBtmac());
             object.put("pdunid", deviceData.getPdunid());
             object.put("cputy", deviceData.getCputy());
-            object.put("iccid", deviceData.getIccid());
+
             object.put("country", deviceData.getCountry());
             object.put("coordinateType", deviceData.getCoordinateType());
             object.put("locaAccuracy", deviceData.getLocaAccuracy());
             object.put("coordTime", deviceData.getCoordTime());
-            object.put("cellularId", deviceData.getCellularId());
+
             object.put("bssId", deviceData.getBssId());
-            object.put("lac", deviceData.getLac());
+
             object.put("mcc", deviceData.getMcc());
             object.put("netwkId", deviceData.getNetwkId());
             object.put("ssid", deviceData.getSsid());
             object.put("lksd", deviceData.getLksd());
             object.put("rssi", deviceData.getRssi());
             object.put("roaming", deviceData.getRoaming());
-            object.put("stbif", deviceData.getStbif());
             object.put("cpuType", deviceData.getCpuType());
             object.put("cpuSubtype", deviceData.getCpuSubtype());
             object.put("wordSize", deviceData.getWordSize());
@@ -87,16 +82,45 @@ public class JsonUtil {
             object.put("oaid", deviceData.getOaid());
             object.put("nd", deviceData.getNd() == null ? "" : PublicKey.keyboards(deviceData.getNd()));
             object.put("bt", getBluetoothData(deviceData.getBluetoothInfo()));
-            object.put("hpa", deviceData.getHpa());
             object.put("hasReadExternalPermission", deviceData.getHasReadExternalPermission());
             object.put("sw", deviceData.getSurroundingWifi());
-            object.put("altitude", deviceData.getAltitude());
+
             // 2020-02-25 新增上报字段
             object.put("capacity", deviceData.getCapacity());
             object.put("remainCapacity", deviceData.getRemainCapacity());
             object.put("brightness", deviceData.getBrightness());
             object.put("uptime", deviceData.getUptime());
             object.put("runtime", deviceData.getRuntime());
+
+//            2021-08-14 移除上报字段 https://www.tapd.cn/33313361/documents/show/1133313361001001526
+//            object.put("cellularId", deviceData.getCellularId());
+//            object.put("lac", deviceData.getLac());
+//            object.put("stbif", deviceData.getStbif());
+//            object.put("hpa", deviceData.getHpa());
+//            object.put("altitude", deviceData.getAltitude());
+//            object.put("iccid", deviceData.getIccid());
+//            object.put("meid", deviceData.getMeid());
+//            object.put("cid", deviceData.getCid());
+//            object.put("bscid", deviceData.getBscid());
+//            object.put("bsss", deviceData.getBsss());
+
+            // 2020-02-25 新增上报字段
+            //是否release包，1 是，0 否
+            object.put("isrelease", deviceData.getIsrelease());
+            //是否开网络代理，1 是，0 否
+            object.put("isagent", deviceData.getIsagent());
+            //是否开VPN代理，1 是，0 否
+            object.put("isvpn", deviceData.getIsvpn());
+            //是否debug模式，1 是，0 否
+            object.put("isdebug", deviceData.getIsdebug());
+            //是否充电中，1 是，0 否
+            object.put("ischarging", deviceData.getIscharging());
+            //时区
+            object.put("timezone", deviceData.getTimezone());
+            //rom软件版本号
+            object.put("romversion",deviceData.getRomversion());
+            //安卓签名指纹
+            object.put("sign", deviceData.getSign());
 
             String dataGatherSdkVersion = DataSynchronizeManager.getInstance().getDataGatherSdkVersion();
             String dataSynchronizeSdkVersion = DataSynchronizeManager.getInstance().getSdkVersion();
@@ -147,52 +171,52 @@ public class JsonUtil {
         return keyboards;
     }
 
-    public static Map<String, String> operationData2Json(OperationData operationData) {
-        List<OperationData> operationDataList = new ArrayList<>();
-        operationDataList.add(operationData);
-        return operationData2Json(operationDataList);
-    }
+//    public static Map<String, String> operationData2Json(OperationData operationData) {
+//        List<OperationData> operationDataList = new ArrayList<>();
+//        operationDataList.add(operationData);
+//        return operationData2Json(operationDataList);
+//    }
 
-    public static Map<String, String> operationData2Json(List<OperationData> operationDataList) {
-        long machineId = DataCacheManager.getInstance().getMachineId();
-        if (machineId == 0 || operationDataList == null || operationDataList.isEmpty()) {
-            return null;
-        }
-        JSONArray jsonArray = null;
-        try {
-            jsonArray = new JSONArray();
-            for (int i = 0; i < operationDataList.size(); i++) {
-                JSONObject object = new JSONObject();
-                OperationData operationData = operationDataList.get(i);
-                object.put("operationType", operationData.getOperationType());
-                object.put("machineType", operationData.getMachineType());
-                object.put("scheme", operationData.getScheme());
-                object.put("startCooX", operationData.getStartCooX());
-                object.put("endCooX", operationData.getEndCooX());
-                object.put("startCooY", operationData.getStartCooY());
-                object.put("endCooY", operationData.getEndCooY());
-                object.put("startTime", operationData.getStartTime());
-                object.put("endTime", operationData.getEndTime());
-                object.put("packageName", operationData.getPackageName());
-                object.put("versionNo", operationData.getVersionNo());
-                object.put("machineId", operationData.getMachineId());
-                Map<String, String> customParam = operationData.getCustomParam();
-                if (customParam != null && customParam.size() > 0) {
-                    Iterator<Map.Entry<String, String>> iterator = customParam.entrySet().iterator();
-                    while (iterator.hasNext()) {
-                        Map.Entry<String, String> next = iterator.next();
-                        object.put(next.getKey(), next.getValue());
-                    }
-                }
-                jsonArray.put(object);
-            }
-            operationDataList.clear();
-            return SampleUploadUtil.getSameEncryptionParams(machineId, PublicKey.keyboards(jsonArray.toString()));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
+//    public static Map<String, String> operationData2Json(List<OperationData> operationDataList) {
+//        long machineId = DataCacheManager.getInstance().getMachineId();
+//        if (machineId == 0 || operationDataList == null || operationDataList.isEmpty()) {
+//            return null;
+//        }
+//        JSONArray jsonArray = null;
+//        try {
+//            jsonArray = new JSONArray();
+//            for (int i = 0; i < operationDataList.size(); i++) {
+//                JSONObject object = new JSONObject();
+//                OperationData operationData = operationDataList.get(i);
+//                object.put("operationType", operationData.getOperationType());
+//                object.put("machineType", operationData.getMachineType());
+//                object.put("scheme", operationData.getScheme());
+//                object.put("startCooX", operationData.getStartCooX());
+//                object.put("endCooX", operationData.getEndCooX());
+//                object.put("startCooY", operationData.getStartCooY());
+//                object.put("endCooY", operationData.getEndCooY());
+//                object.put("startTime", operationData.getStartTime());
+//                object.put("endTime", operationData.getEndTime());
+//                object.put("packageName", operationData.getPackageName());
+//                object.put("versionNo", operationData.getVersionNo());
+//                object.put("machineId", operationData.getMachineId());
+//                Map<String, String> customParam = operationData.getCustomParam();
+//                if (customParam != null && customParam.size() > 0) {
+//                    Iterator<Map.Entry<String, String>> iterator = customParam.entrySet().iterator();
+//                    while (iterator.hasNext()) {
+//                        Map.Entry<String, String> next = iterator.next();
+//                        object.put(next.getKey(), next.getValue());
+//                    }
+//                }
+//                jsonArray.put(object);
+//            }
+//            operationDataList.clear();
+//            return SampleUploadUtil.getSameEncryptionParams(machineId, PublicKey.keyboards(jsonArray.toString()));
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return null;
+//    }
 
     private static String map2Json(Map<String, String> params) {
         if (params == null || params.isEmpty()) {
