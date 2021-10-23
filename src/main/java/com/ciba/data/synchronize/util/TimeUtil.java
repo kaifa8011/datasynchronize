@@ -22,7 +22,13 @@ public class TimeUtil {
     }
 
     public static String getTimeZone() {
-        TimeZone tz = TimeZone.getDefault();
-        return tz.getDisplayName(false, TimeZone.SHORT);
+        try {
+            TimeZone tz = TimeZone.getDefault();
+            return tz.getDisplayName(false, TimeZone.SHORT);
+        } catch (AssertionError e) {
+            // Workaround for a bug in Android that can cause crashes on Android 8.0 and 8.1
+        } catch (Exception e) {
+        }
+        return "";
     }
 }
